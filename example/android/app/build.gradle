@@ -60,6 +60,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    namespace 'com.metriri.health_connect_example'
 }
 
 flutter {
