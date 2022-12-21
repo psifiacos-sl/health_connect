@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:health_connect/constants.dart';
 
 import 'health_connect_platform_interface.dart';
 
@@ -7,11 +8,13 @@ import 'health_connect_platform_interface.dart';
 class MethodChannelHealthConnect extends HealthConnectPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
-  final methodChannel = const MethodChannel('health_connect');
+  final methodChannel = const MethodChannel(Constants.methodChannelToAndroid);
 
   @override
   Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
+    final version = await methodChannel.invokeMethod<String>(Constants.getPlatformVersion);
     return version;
   }
+
+
 }
