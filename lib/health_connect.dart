@@ -1,4 +1,6 @@
 
+import 'package:health_connect/domain/record.dart';
+
 import 'health_connect_platform_interface.dart';
 
 class HealthConnect {
@@ -10,10 +12,6 @@ class HealthConnect {
 
   Future<String?> getPlatformVersion() {
     return HealthConnectPlatform.instance.getPlatformVersion();
-  }
-
-  void sample(){
-
   }
 
 }

@@ -41,7 +41,6 @@ class _MyAppState extends State<MyApp> {
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
-
     setState(() {
       _platformVersion = platformVersion;
     });
@@ -54,8 +53,13 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: Text('Running on1111: $_platformVersion\n'),
+        body: Column(
+          children: [
+            Text('Running on1111: $_platformVersion\n'),
+            ElevatedButton(onPressed: ()async{
+              await _healthConnectPlugin.getPlatformVersion();
+            }, child: Text("request"))
+          ],
         ),
       ),
     );

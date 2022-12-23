@@ -1,9 +1,6 @@
 package com.metriri.health_connect
 
-import android.app.Activity
-import android.util.Log
 import androidx.annotation.NonNull
-import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -22,7 +19,6 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     /// when the Flutter Engine is detached from the Activity
 
     private var activity: FlutterFragmentActivity? = null
-
     companion object {
         private var channel: MethodChannel? = null
     }
@@ -30,16 +26,35 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(
             flutterPluginBinding.binaryMessenger,
-            HealthConnectConstants.methodChannelToAndroid
+            Constants.methodChannelToAndroid
         )
         channel!!.setMethodCallHandler(this)
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-        if (call.method == HealthConnectConstants.getPlatformVersion) {
-            result.success("${HealthConnectConstants.android} ${android.os.Build.VERSION.RELEASE}")
-        } else {
-            result.notImplemented()
+        when (call.method) {
+            Constants.getPlatformVersion -> {
+                result.success("${Constants.android} ${android.os.Build.VERSION.RELEASE}")
+            }
+            Constants.requestPermissions -> {
+                val arguments = call.arguments
+                activity?.let {
+                    HealthConnectManager.initHealthConnect(context = it)
+                    HealthConnectManager.checkPermissionsAndRun(activity = it, recordsClasses = call.arguments as List<Constants.RecordClass>, response = { records ->
+                        result.success(records)
+                    })
+                }
+                result.error("-1", "", 1)
+            }
+            Constants.isAuthorized -> {
+                result.notImplemented()
+            }
+            Constants.readData -> {
+
+            }
+            else -> {
+                result.notImplemented()
+            }
         }
     }
 
@@ -64,7 +79,6 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
     override fun onDetachedFromActivity() {
         // Clean up references.
-        HealthConnectManager.healthConnectClient
         activity = null
     }
 

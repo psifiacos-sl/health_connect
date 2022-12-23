@@ -1,3 +1,6 @@
+import 'package:health_connect/domain/ReadRecordResponse.dart';
+import 'package:health_connect/domain/record.dart';
+import 'package:health_connect/enums.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'health_connect_method_channel.dart';
@@ -24,9 +27,14 @@ abstract class HealthConnectPlatform extends PlatformInterface {
   }
 
   Future<String?> getPlatformVersion() {
-
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
+  Future<List<RecordClass>> requestPermissions(List<RecordClass> permissions);
 
+  Future<ReadRecordResponse> readData(RecordClass recordClass);
+
+  Future<bool> permissionsGranted() {
+    throw UnimplementedError('This method has not been implemented.');
+  }
 }

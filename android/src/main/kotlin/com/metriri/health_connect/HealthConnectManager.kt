@@ -1,51 +1,71 @@
 package com.metriri.health_connect
 
-import android.app.Activity
+import Utils
 import android.content.Context
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.PermissionController
 import androidx.health.connect.client.permission.HealthPermission
-import androidx.health.connect.client.records.HeartRateRecord
-import androidx.health.connect.client.records.StepsRecord
-import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragmentActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
-class HealthConnectManager {
+object HealthConnectManager {
 
-    companion object {
-        var healthConnectClient: HealthConnectClient? = null
-    }
-
-    val PERMISSIONS = setOf(
-        HealthPermission.createReadPermission(HeartRateRecord::class),
-        HealthPermission.createWritePermission(HeartRateRecord::class),
-        HealthPermission.createReadPermission(StepsRecord::class),
-        HealthPermission.createWritePermission(StepsRecord::class)
-    )
-
-    fun initHealthConnect(context: Context) {
-        if (HealthConnectClient.isProviderAvailable(context) && HealthConnectClient.isApiSupported()) {
-            healthConnectClient = HealthConnectClient.getOrCreate(context)
-        }
-    }
 
     private val requestPermissionActivityContract =
         PermissionController.createRequestPermissionResultContract()
+    var healthConnectClient: HealthConnectClient? = null
+    private val job = SupervisorJob()
+    private val scope by lazy { CoroutineScope(Dispatchers.IO + job) }
+
+    fun initHealthConnect(context: Context): Constants.HealthConnectClientStatus {
+        var status: Constants.HealthConnectClientStatus =
+            Constants.HealthConnectClientStatus.UnKnown
+        try {
+            healthConnectClient = HealthConnectClient.getOrCreate(context)
+            status = Constants.HealthConnectClientStatus.OK
+        } catch (e: Exception) {
+            if (e is IllegalStateException) {
+                status = Constants.HealthConnectClientStatus.ProviderNotSupported
+            } else if (e is UnsupportedOperationException) {
+                status = Constants.HealthConnectClientStatus.ApiNotSupported
+            }
+        }
+        return status
+    }
+
+
     private lateinit var requestPermissions: ActivityResultLauncher<Set<HealthPermission>>
-    fun requestPermission(activity: FlutterFragmentActivity) {
+    private fun requestPermissions(
+        activity: FlutterFragmentActivity,
+    ) {
         requestPermissions =
             activity.registerForActivityResult(requestPermissionActivityContract) { granted ->
+
             }
     }
 
-    private suspend fun checkPermissionsAndRun(healthConnectClient: HealthConnectClient) {
-        val granted = healthConnectClient.permissionController.getGrantedPermissions(PERMISSIONS)
-        if (granted.containsAll(PERMISSIONS)) {
-
-        } else {
-            requestPermissions.launch(PERMISSIONS)
+    fun checkPermissionsAndRun(
+        activity: FlutterFragmentActivity,
+        recordsClasses: List<Constants.RecordClass>,
+        response: (records : List<Constants.RecordClass>) -> Unit
+    ) {
+        scope.launch {
+            val permissions: Set<HealthPermission> =
+                Utils.fromRecordClassesToPermissions(recordsClasses)
+            val granted =
+                healthConnectClient?.permissionController?.getGrantedPermissions(permissions)
+            if (granted?.containsAll(permissions) == true) {
+                response(recordsClasses)
+            } else {
+                requestPermissions(activity)
+                requestPermissions.launch(permissions)
+            }
         }
     }
+
+
 }
