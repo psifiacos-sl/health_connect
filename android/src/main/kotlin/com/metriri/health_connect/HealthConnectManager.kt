@@ -41,17 +41,27 @@ object HealthConnectManager {
     private lateinit var requestPermissions: ActivityResultLauncher<Set<HealthPermission>>
     private fun requestPermissions(
         activity: FlutterFragmentActivity,
+        permissions: Set<HealthPermission>,
+        recordsClasses: Set<Constants.RecordClass>,
+        response: (records: Set<Constants.RecordClass>) -> Unit
     ) {
+        activity.registerForActivityResult(requestPermissionActivityContract, ){}
         requestPermissions =
             activity.registerForActivityResult(requestPermissionActivityContract) { granted ->
-
+                if (granted.containsAll(permissions)) {
+                    response(recordsClasses)
+                } else {
+                    response(setOf())
+                }
             }
+        requestPermissions.launch(permissions)
     }
 
     fun checkPermissionsAndRun(
         activity: FlutterFragmentActivity,
-        recordsClasses: List<Constants.RecordClass>,
-        response: (records : List<Constants.RecordClass>) -> Unit
+        recordsClasses: Set<Constants.RecordClass>,
+        response: (records: Set<Constants.RecordClass>) -> Unit,
+        shouldRun: Boolean
     ) {
         scope.launch {
             val permissions: Set<HealthPermission> =
@@ -61,8 +71,7 @@ object HealthConnectManager {
             if (granted?.containsAll(permissions) == true) {
                 response(recordsClasses)
             } else {
-                requestPermissions(activity)
-                requestPermissions.launch(permissions)
+                if (shouldRun) requestPermissions(activity, permissions, recordsClasses, response)
             }
         }
     }

@@ -32,8 +32,8 @@ class MethodChannelHealthConnect extends HealthConnectPlatform {
   @override
   Future<List<RecordClass>> requestPermissions(
       List<RecordClass> permissions) async {
-    final result = await methodChannel.invokeListMethod(
-        Constants.requestPermissions, [RecordClass.StepsRecord]);
+    final result = await methodChannel.invokeListMethod<List<dynamic>>(
+        Constants.requestPermissions, {Constants.permissionList: permissions.map((e) => e.name).toList()});
     print(result.toString());
     return [];
   }

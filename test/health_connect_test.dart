@@ -15,20 +15,8 @@ class MockHealthConnectPlatform
   Future<String?> getPlatformVersion() => Future.value('42');
 
   @override
-  Future<Record> getRecord() {
-    // TODO: implement getRecord
-    throw UnimplementedError();
-  }
-
-  @override
   Future<bool> permissionsGranted() {
     // TODO: implement permissionsGranted
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool> isAuthorized(RecordClass recordClass) {
-    // TODO: implement isAuthorized
     throw UnimplementedError();
   }
 

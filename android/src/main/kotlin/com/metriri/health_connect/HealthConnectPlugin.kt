@@ -1,6 +1,10 @@
 package com.metriri.health_connect
 
+import Utils
+import android.content.Intent
+import android.util.Log
 import androidx.annotation.NonNull
+import com.metriri.health_connect.Constants.Companion.permissionList
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -9,6 +13,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import io.flutter.plugin.common.PluginRegistry
 
 
 /** HealthConnectPlugin */
@@ -19,6 +24,8 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     /// when the Flutter Engine is detached from the Activity
 
     private var activity: FlutterFragmentActivity? = null
+    private var activityBinding: ActivityPluginBinding? = null
+
     companion object {
         private var channel: MethodChannel? = null
     }
@@ -37,14 +44,29 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 result.success("${Constants.android} ${android.os.Build.VERSION.RELEASE}")
             }
             Constants.requestPermissions -> {
-                val arguments = call.arguments
-                activity?.let {
-                    HealthConnectManager.initHealthConnect(context = it)
-                    HealthConnectManager.checkPermissionsAndRun(activity = it, recordsClasses = call.arguments as List<Constants.RecordClass>, response = { records ->
-                        result.success(records)
-                    })
+                activity?.let { act ->
+                    val argument = call.argument(Constants.permissionList) as List<String>?
+                    argument?.let { arg ->
+                        HealthConnectManager.initHealthConnect(context = act)
+                        @Suppress("UNCHECKED_CAST")
+                        HealthConnectManager.checkPermissionsAndRun(
+                            activity = act,
+                            recordsClasses = Utils.fromListStringToRecordClass(arg),
+                            response = { records ->
+                                val resultList: MutableList<String> = mutableListOf()
+                                records.forEach {
+                                    resultList.add(it.name)
+                                }
+                                result.success(resultList)
+                            },
+                            shouldRun = true
+                        )
+                    } ?: run {
+                        result.error("-1", "", 1)
+                    }
+                } ?: run {
+                    result.error("-1", "", 1)
                 }
-                result.error("-1", "", 1)
             }
             Constants.isAuthorized -> {
                 result.notImplemented()
@@ -64,6 +86,7 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         activity = binding.activity as FlutterFragmentActivity
+        activityBinding = binding
     }
 
     override fun onDetachedFromActivityForConfigChanges() {
@@ -75,6 +98,7 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
         // after a configuration change.
         activity = binding.activity as FlutterFragmentActivity
+        activityBinding = binding
     }
 
     override fun onDetachedFromActivity() {

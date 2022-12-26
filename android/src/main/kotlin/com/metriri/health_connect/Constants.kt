@@ -13,6 +13,7 @@ class Constants {
         val readData = "readData"
 
         ///Keys
+        val permissionList = "permissionList"
     }
 
     enum class HealthConnectClientStatus{

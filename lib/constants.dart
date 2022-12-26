@@ -21,6 +21,7 @@ class Constants {
   static const clientRecordVersion = "clientRecordVersion";
   static const clientRecordId = "clientRecordId";
   static const device = "device";
+  static const permissionList = "permissionList";
 
   ///Device types
   static const TYPE_UNKNOWN = 0;

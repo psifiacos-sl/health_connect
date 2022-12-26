@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:health_connect/enums.dart';
 import 'package:health_connect/health_connect.dart';
 
 void main() {
@@ -23,6 +24,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initPlatformState();
+    requestPermissions();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -31,8 +33,8 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion =
-          await _healthConnectPlugin.getPlatformVersion() ?? 'Unknown platform version';
+      platformVersion = await _healthConnectPlugin.getPlatformVersion() ??
+          'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -56,12 +58,16 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: [
             Text('Running on1111: $_platformVersion\n'),
-            ElevatedButton(onPressed: ()async{
-              await _healthConnectPlugin.getPlatformVersion();
-            }, child: Text("request"))
+            ElevatedButton(onPressed: () async {}, child: Text("request"))
           ],
         ),
       ),
     );
+  }
+
+  void requestPermissions() async {
+    final permissions = await _healthConnectPlugin
+        .requestPermissions([RecordClass.StepsRecord]);
+    final res = await _healthConnectPlugin.readData(RecordClass.StepsRecord);
   }
 }
