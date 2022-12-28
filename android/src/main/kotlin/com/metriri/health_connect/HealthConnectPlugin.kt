@@ -47,7 +47,7 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 activity?.let { act ->
                     val argument = call.argument(Constants.permissionList) as List<String>?
                     argument?.let { arg ->
-                        HealthConnectManager.initHealthConnect(context = act)
+                        HealthConnectManager.initHealthConnect(activity = act)
                         @Suppress("UNCHECKED_CAST")
                         HealthConnectManager.checkPermissionsAndRun(
                             activity = act,

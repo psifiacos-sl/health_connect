@@ -6,6 +6,7 @@ import 'package:health_connect/enums.dart';
 import 'package:health_connect/health_connect.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -24,7 +25,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initPlatformState();
-    requestPermissions();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -58,7 +58,9 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: [
             Text('Running on1111: $_platformVersion\n'),
-            ElevatedButton(onPressed: () async {}, child: Text("request"))
+            ElevatedButton(onPressed: () async {
+              requestPermissions();
+            }, child: Text("request"))
           ],
         ),
       ),
