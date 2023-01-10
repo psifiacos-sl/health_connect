@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:health_connect/constants.dart';
 import 'package:health_connect/domain/ReadRecordResponse.dart';
 import 'package:health_connect/domain/record.dart';
 import 'package:health_connect/enums.dart';
@@ -10,15 +11,8 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockHealthConnectPlatform
     with MockPlatformInterfaceMixin
     implements HealthConnectPlatform {
-
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
-
-  @override
-  Future<bool> permissionsGranted() {
-    // TODO: implement permissionsGranted
-    throw UnimplementedError();
-  }
 
   @override
   Future<ReadRecordResponse> readData(RecordClass recordClass) {
@@ -31,6 +25,24 @@ class MockHealthConnectPlatform
     // TODO: implement requestPermissions
     throw UnimplementedError();
   }
+
+  @override
+  Future<List<RecordClass>> checkPermissions(List<RecordClass> permissions) {
+    // TODO: implement checkPermissions
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<HealthConnectStatus> isProviderAvailable() {
+    // TODO: implement isProviderAvailable
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> write() {
+    // TODO: implement write
+    throw UnimplementedError();
+  }
 }
 
 void main() {
@@ -40,7 +52,7 @@ void main() {
     expect(initialPlatform, isInstanceOf<MethodChannelHealthConnect>());
   });
 
-  test('getPlatformVersion', () async {
+  test(Constants.getPlatformVersion, () async {
     HealthConnect healthConnectPlugin = HealthConnect();
     MockHealthConnectPlatform fakePlatform = MockHealthConnectPlatform();
     HealthConnectPlatform.instance = fakePlatform;

@@ -17,6 +17,11 @@ class HealthConnect {
     return HealthConnectPlatform.instance.getPlatformVersion();
   }
 
+  Future<HealthConnectStatus> isProviderAvailable() async {
+    final result = await HealthConnectPlatform.instance.isProviderAvailable();
+    return result;
+  }
+
   Future<List<RecordClass>> requestPermissions(
       List<RecordClass> permissions) async {
     final list =
@@ -24,8 +29,20 @@ class HealthConnect {
     return list;
   }
 
+  Future<List<RecordClass>> checkPermissions(
+      List<RecordClass> permissions) async {
+    final list =
+        await HealthConnectPlatform.instance.checkPermissions(permissions);
+    return list;
+  }
+
   Future<ReadRecordResponse> readData(RecordClass recordClass) async {
     final result = await HealthConnectPlatform.instance.readData(recordClass);
+    return result;
+  }
+
+  Future<void> writeData() async {
+    final result = await HealthConnectPlatform.instance.write();
     return result;
   }
 }

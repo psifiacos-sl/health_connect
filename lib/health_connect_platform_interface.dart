@@ -30,11 +30,13 @@ abstract class HealthConnectPlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
+  Future<HealthConnectStatus> isProviderAvailable();
+
   Future<List<RecordClass>> requestPermissions(List<RecordClass> permissions);
+
+  Future<List<RecordClass>> checkPermissions(List<RecordClass> permissions);
 
   Future<ReadRecordResponse> readData(RecordClass recordClass);
 
-  Future<bool> permissionsGranted() {
-    throw UnimplementedError('This method has not been implemented.');
-  }
+  Future<void> write();
 }

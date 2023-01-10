@@ -58,18 +58,61 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: [
             Text('Running on1111: $_platformVersion\n'),
-            ElevatedButton(onPressed: () async {
-              requestPermissions();
-            }, child: Text("request"))
+            ElevatedButton(
+                onPressed: () async {
+                  isProviderAvailable();
+                },
+                child: Text("Provider Available")),
+            ElevatedButton(
+                onPressed: () async {
+                  checkPermissions();
+                },
+                child: Text("Check")),
+            ElevatedButton(
+                onPressed: () async {
+                  requestPermissions();
+                },
+                child: Text("Request")),
+            ElevatedButton(
+                onPressed: () async {
+                  readData();
+                },
+                child: Text("Read")),
+            ElevatedButton(
+                onPressed: () async {
+                  writeData();
+                },
+                child: Text("Write"))
           ],
         ),
       ),
     );
   }
 
+  void isProviderAvailable() async {
+    final status = await _healthConnectPlugin.isProviderAvailable();
+    print(status.toString());
+  }
+
+  void checkPermissions() async {
+    final permissions = await _healthConnectPlugin
+        .checkPermissions([RecordClass.StepsRead, RecordClass.StepsWrite]);
+    print(permissions.toString());
+  }
+
   void requestPermissions() async {
     final permissions = await _healthConnectPlugin
-        .requestPermissions([RecordClass.StepsRecord]);
-    final res = await _healthConnectPlugin.readData(RecordClass.StepsRecord);
+        .requestPermissions([RecordClass.StepsRead, RecordClass.StepsWrite]);
+    print(permissions.toString());
+  }
+
+  void readData() async {
+    final data = await _healthConnectPlugin.readData(RecordClass.StepsRead);
+    print(data.toString());
+  }
+
+  void writeData() async {
+    await _healthConnectPlugin.writeData();
+    print("OK");
   }
 }

@@ -1,13 +1,14 @@
 class Constants {
   static const android = "Android";
   static const methodChannelToAndroid = "health_connect_to_android";
-  static const methodChannelToFlutter = "health_connect_to_flutter";
 
   ///Methods name
   static const getPlatformVersion = "getPlatformVersion";
+  static const isProviderAvailable = "isProviderAvailable";
   static const requestPermissions = "requestPermissions";
-  static const isAuthorized = "isAuthorized";
+  static const checkPermissions = "checkPermissions";
   static const readData = "readData";
+  static const writeData = "writeData";
 
   ///Keys
   static const metadata = "metadata";
@@ -21,7 +22,9 @@ class Constants {
   static const clientRecordVersion = "clientRecordVersion";
   static const clientRecordId = "clientRecordId";
   static const device = "device";
-  static const permissionList = "permissionList";
+
+  static const recordClassListArgKey = "recordClassListArgKey";
+  static const recordClassArgKey = "recordClassArgKey";
 
   ///Device types
   static const TYPE_UNKNOWN = 0;
@@ -33,6 +36,4 @@ class Constants {
   static const TYPE_FITNESS_BAND = 6;
   static const TYPE_CHEST_STRAP = 7;
   static const TYPE_SMART_DISPLAY = 8;
-
-
 }

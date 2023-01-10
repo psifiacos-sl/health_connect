@@ -1,10 +1,11 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:health_connect/constants.dart';
 import 'package:health_connect/health_connect_method_channel.dart';
 
 void main() {
   MethodChannelHealthConnect platform = MethodChannelHealthConnect();
-  const MethodChannel channel = MethodChannel('health_connect');
+  const MethodChannel channel = MethodChannel(Constants.methodChannelToAndroid);
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -18,7 +19,7 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('getPlatformVersion', () async {
+  test(Constants.getPlatformVersion, () async {
     expect(await platform.getPlatformVersion(), '42');
   });
 }
