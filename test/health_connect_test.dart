@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connect/constants.dart';
-import 'package:health_connect/domain/ReadRecordResponse.dart';
-import 'package:health_connect/domain/record.dart';
+import 'package:health_connect/domain/read_record_response.dart';
 import 'package:health_connect/enums.dart';
 import 'package:health_connect/health_connect.dart';
 import 'package:health_connect/health_connect_platform_interface.dart';
@@ -15,7 +14,7 @@ class MockHealthConnectPlatform
   Future<String?> getPlatformVersion() => Future.value('42');
 
   @override
-  Future<ReadRecordResponse> readData(RecordClass recordClass) {
+  Future<ReadResponse> readData(RecordClass recordClass, int startTime, int endTime) {
     // TODO: implement readData
     throw UnimplementedError();
   }

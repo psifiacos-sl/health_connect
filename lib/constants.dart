@@ -22,18 +22,44 @@ class Constants {
   static const clientRecordVersion = "clientRecordVersion";
   static const clientRecordId = "clientRecordId";
   static const device = "device";
+  static const startTime = "startTime";
+  static const endTime = "endTime";
+  static const time = "time";
+  static const pageToken = "pageToken";
+  static const records = "records";
+  static const count = "count";
+  static const value = "value";
+  static const energy = "energy";
+  static const temperature = "temperature";
+  static const basalMetabolicRate = "basalMetabolicRate";
+  static const level = "level";
+  static const systolic = "systolic";
+  static const diastolic = "diastolic";
+  static const percentage = "percentage";
+  static const mass = "mass";
+  static const samples = "samples";
+  static const revolutionsPerMinute = "revolutionsPerMinute";
+  static const distance = "distance";
+  static const elevation = "elevation";
+  static const length = "length";
+  static const latitude = "latitude";
+  static const longitude = "longitude";
+  static const horizontalAccuracy = "horizontalAccuracy";
+  static const altitude = "altitude";
+  static const verticalAccuracy = "verticalAccuracy";
+  static const title = "title";
+  static const notes = "notes";
+  static const floors = "floors";
+  static const beatsPerMinute = "beatsPerMinute";
+  static const height = "height";
+  static const circumference = "circumference";
+  static const volume = "volume";
+  static const flow = "flow";
+  static const rate = "rate";
+  static const stage = "stage";
+  static const velocity = "velocity";
+  static const vo2MillilitersPerMinuteKilogram = "vo2MillilitersPerMinuteKilogram";
 
   static const recordClassListArgKey = "recordClassListArgKey";
   static const recordClassArgKey = "recordClassArgKey";
-
-  ///Device types
-  static const TYPE_UNKNOWN = 0;
-  static const TYPE_WATCH = 1;
-  static const TYPE_PHONE = 2;
-  static const TYPE_SCALE = 3;
-  static const TYPE_RING = 4;
-  static const TYPE_HEAD_MOUNTED = 5;
-  static const TYPE_FITNESS_BAND = 6;
-  static const TYPE_CHEST_STRAP = 7;
-  static const TYPE_SMART_DISPLAY = 8;
 }

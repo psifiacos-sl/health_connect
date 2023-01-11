@@ -87,11 +87,15 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             }
             Constants.readData -> {
                 activity?.let { act ->
-                    val argument = call.argument(Constants.recordClassArgKey) as String?
-                    argument?.let { arg ->
+                    val recordClassArgKey = call.argument(Constants.recordClassArgKey) as String?
+                    val startTime = call.argument(Constants.startTime) as Long?
+                    val endTime = call.argument(Constants.endTime) as Long?
+                    if (recordClassArgKey is String && startTime is Long && endTime is Long) {
                         when (val hcStatus = HCManager.getOrCreate(activity = act)) {
                             Constants.hCClientStatus.OK -> HCManager.readData(
-                                recordClass = arg,
+                                recordClass = recordClassArgKey,
+                                startTime = startTime,
+                                endTime = endTime,
                                 response = { response ->
                                     val hCResultJson = gson.toJson(response)
                                     result.success(hCResultJson)
@@ -99,8 +103,7 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
                             )
                             else -> resolveHCClientStatusNotOK(result, hcStatus)
                         }
-
-                    } ?: run {
+                    } else {
                         result.error(Constants.missingArgument, "No Argument", -1)
                     }
                 } ?: run {

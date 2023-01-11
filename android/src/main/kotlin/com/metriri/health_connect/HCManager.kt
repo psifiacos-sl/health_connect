@@ -4,13 +4,16 @@ import Utils
 import android.util.Log
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.permission.HealthPermission
-import androidx.health.connect.client.records.Record
-import androidx.health.connect.client.records.StepsRecord
+import androidx.health.connect.client.records.*
 import androidx.health.connect.client.records.metadata.Metadata
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.response.InsertRecordsResponse
 import androidx.health.connect.client.response.ReadRecordsResponse
 import androidx.health.connect.client.time.TimeRangeFilter
+import androidx.health.connect.client.units.BloodGlucose
+import androidx.health.connect.client.units.Energy
+import androidx.health.connect.client.units.Temperature
+import androidx.health.connect.client.units.Velocity
 import com.google.gson.Gson
 import io.flutter.embedding.android.FlutterFragmentActivity
 import kotlinx.coroutines.CoroutineScope
@@ -76,6 +79,8 @@ object HCManager {
 
     fun readData(
         recordClass: String,
+        startTime: Long,
+        endTime: Long,
         response: (readRecordsResponse: ReadRecordsResponse<out Record>?) -> Unit,
     ) {
         checkPermissions(listOf(recordClass)) { record ->
@@ -85,7 +90,7 @@ object HCManager {
                     ReadRecordsRequest(
                         kClass,
                         timeRangeFilter = TimeRangeFilter.between(
-                            Instant.now().minusSeconds(259200), Instant.now()
+                            Instant.ofEpochMilli(startTime), Instant.ofEpochMilli(endTime)
                         ),
                     )
                 )
@@ -95,16 +100,22 @@ object HCManager {
     }
 
     fun writeData() {
-        val stepsRecord =
-            StepsRecord(
-                count = 12340,
-                startTime = Instant.now().minusSeconds(60),
+        val record =
+            ActiveCaloriesBurnedRecord(
+                energy = Energy.calories(
+                    3000.0
+                ),
+                metadata = Metadata(
+                    lastModifiedTime = Instant.now().minusSeconds(2000)
+                ),
+                startTime = Instant.now().minusSeconds(1000),
                 endTime = Instant.now(),
-                startZoneOffset = ZoneOffset.UTC,
-                endZoneOffset = ZoneOffset.UTC,
+                startZoneOffset = ZoneOffset.ofHours(4),
+                endZoneOffset = ZoneOffset.ofHours(6)
+
             )
         scope.launch {
-            val result: InsertRecordsResponse? = hCClient?.insertRecords(listOf(stepsRecord))
+            val result: InsertRecordsResponse? = hCClient?.insertRecords(listOf(record))
             Log.i("Write result", Gson().toJson(result))
         }
     }

@@ -1,5 +1,4 @@
-import 'package:health_connect/domain/ReadRecordResponse.dart';
-import 'package:health_connect/domain/record.dart';
+import 'package:health_connect/domain/read_record_response.dart';
 import 'package:health_connect/enums.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
@@ -36,7 +35,7 @@ abstract class HealthConnectPlatform extends PlatformInterface {
 
   Future<List<RecordClass>> checkPermissions(List<RecordClass> permissions);
 
-  Future<ReadRecordResponse> readData(RecordClass recordClass);
+  Future<ReadResponse> readData(RecordClass recordClass, int startTime, int endTime);
 
   Future<void> write();
 }

@@ -1,0 +1,41 @@
+{
+  "pageToken": "",
+  "records": [
+    {
+      "count": 12340,
+      "endTime": {},
+      "endZoneOffset": {},
+      "metadata": {
+        "clientRecordVersion": 0,
+        "dataOrigin": {
+          "packageName": "com.metriri.health_connect_example"
+        },
+        "device": {
+          "type": 0
+        },
+        "id": "a8be28e8-8523-4833-86ec-20e2a233a30a",
+        "lastModifiedTime": {}
+      },
+      "startTime": {},
+      "startZoneOffset": {}
+    },
+    {
+      "count": 12340,
+      "endTime": {},
+      "endZoneOffset": {},
+      "metadata": {
+        "clientRecordVersion": 0,
+        "dataOrigin": {
+          "packageName": "com.metriri.health_connect_example"
+        },
+        "device": {
+          "type": 0
+        },
+        "id": "807d22fc-38fa-4337-a9c0-6fe837619359",
+        "lastModifiedTime": {}
+      },
+      "startTime": {},
+      "startZoneOffset": {}
+    }
+  ]
+}

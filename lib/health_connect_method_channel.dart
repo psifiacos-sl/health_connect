@@ -3,10 +3,9 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:health_connect/constants.dart';
-import 'package:health_connect/domain/ReadRecordResponse.dart';
-import 'package:health_connect/domain/metada.dart';
-import 'package:health_connect/domain/record.dart';
-import 'package:health_connect/domain/steps_record.dart';
+import 'package:health_connect/domain/read_record_response.dart';
+import 'package:health_connect/domain/record_mapper.dart';
+import 'package:health_connect/domain/record_response_model.dart';
 import 'package:health_connect/enums.dart';
 
 import 'health_connect_platform_interface.dart';
@@ -56,10 +55,28 @@ class MethodChannelHealthConnect extends HealthConnectPlatform {
   }
 
   @override
-  Future<ReadRecordResponse> readData(RecordClass recordClass) async {
-    final result = await methodChannel.invokeMethod(
-        Constants.readData, {Constants.recordClassArgKey: recordClass.name});
-    return ReadRecordResponse.error(error: ReadRecordError(code: 1));
+  Future<ReadResponse> readData(
+      RecordClass recordClass, int startTime, int endTime) async {
+    assert(recordClass.name.toLowerCase().endsWith("read"));
+    final result = await methodChannel.invokeMethod(Constants.readData, {
+      Constants.recordClassArgKey: recordClass.name,
+      Constants.startTime: startTime,
+      Constants.endTime: endTime
+    }).onError((error, stackTrace) {
+      return ReadResponse.error(
+          error: ReadRecordError(code: 1, message: error.toString()));
+    });
+    final resultJson = jsonDecode(result);
+    final records = (resultJson[Constants.records] as Iterable).isNotEmpty
+        ? (resultJson[Constants.records] as Iterable)
+        : [];
+    final readResponseResult = ReadResponse.success<RecordResponseModel>(
+        value: RecordResponseModel(
+            pageToken: resultJson[Constants.pageToken],
+            records: records
+                .map((e) => RecordMapper.getRecordMapper(recordClass, e))
+                .toList()));
+    return readResponseResult;
   }
 
   @override
@@ -67,6 +84,7 @@ class MethodChannelHealthConnect extends HealthConnectPlatform {
     final String? result = await methodChannel
         .invokeMethod<String>(Constants.isProviderAvailable)
         .onError((error, stackTrace) {
+      print(error.toString());
     });
     return HealthConnectStatus.values.firstWhere((element) =>
         element.name == (result?.toString() ?? HealthConnectStatus.UnKnown));

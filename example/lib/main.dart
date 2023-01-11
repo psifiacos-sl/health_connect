@@ -102,12 +102,16 @@ class _MyAppState extends State<MyApp> {
 
   void requestPermissions() async {
     final permissions = await _healthConnectPlugin
-        .requestPermissions([RecordClass.StepsRead, RecordClass.StepsWrite]);
+        .requestPermissions([RecordClass.ActiveCaloriesBurnedRead, RecordClass.ActiveCaloriesBurnedWrite,]);
     print(permissions.toString());
   }
 
   void readData() async {
-    final data = await _healthConnectPlugin.readData(RecordClass.StepsRead);
+    final st = DateTime.now().subtract(Duration(seconds: 100000));
+    final et = DateTime.now();
+    final data = await _healthConnectPlugin.readData(RecordClass.ActiveCaloriesBurnedRead,
+        startTime: st.millisecondsSinceEpoch,
+        endTime: et.millisecondsSinceEpoch);
     print(data.toString());
   }
 

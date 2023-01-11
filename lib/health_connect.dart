@@ -1,5 +1,4 @@
-import 'package:health_connect/domain/ReadRecordResponse.dart';
-import 'package:health_connect/domain/record.dart';
+import 'package:health_connect/domain/read_record_response.dart';
 import 'package:health_connect/enums.dart';
 
 import 'health_connect_platform_interface.dart';
@@ -36,8 +35,10 @@ class HealthConnect {
     return list;
   }
 
-  Future<ReadRecordResponse> readData(RecordClass recordClass) async {
-    final result = await HealthConnectPlatform.instance.readData(recordClass);
+  Future<ReadResponse> readData(
+      RecordClass recordClass, {required int startTime, required int endTime}) async {
+    final result = await HealthConnectPlatform.instance
+        .readData(recordClass, startTime, endTime);
     return result;
   }
 

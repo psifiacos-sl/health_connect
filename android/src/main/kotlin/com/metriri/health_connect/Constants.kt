@@ -23,6 +23,8 @@ class Constants {
         val missingArgument = "missingArgument"
         val recordClassListArgKey = "recordClassListArgKey"
         val recordClassArgKey = "recordClassArgKey"
+        val startTime = "startTime"
+        val endTime = "endTime"
         val readSuffix = "Read"
         val writeSuffix = "Write"
     }
