@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:health_connect/constants.dart';
 import 'package:health_connect/domain/read_record_response.dart';
 import 'package:health_connect/domain/record_mapper.dart';
-import 'package:health_connect/domain/record_response_model.dart';
 import 'package:health_connect/enums.dart';
 
 import 'health_connect_platform_interface.dart';
