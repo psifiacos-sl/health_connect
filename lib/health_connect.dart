@@ -35,7 +35,7 @@ class HealthConnect {
     return list;
   }
 
-  Future<ReadResponse> readData(
+  Future<ReadRecordResponse> readData(
       RecordClass recordClass, {required int startTime, required int endTime}) async {
     final result = await HealthConnectPlatform.instance
         .readData(recordClass, startTime, endTime);

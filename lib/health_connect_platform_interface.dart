@@ -35,7 +35,7 @@ abstract class HealthConnectPlatform extends PlatformInterface {
 
   Future<List<RecordClass>> checkPermissions(List<RecordClass> permissions);
 
-  Future<ReadResponse> readData(RecordClass recordClass, int startTime, int endTime);
+  Future<ReadRecordResponse> readData(RecordClass recordClass, int startTime, int endTime);
 
   Future<void> write();
 }

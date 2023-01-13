@@ -14,7 +14,7 @@ class MockHealthConnectPlatform
   Future<String?> getPlatformVersion() => Future.value('42');
 
   @override
-  Future<ReadResponse> readData(RecordClass recordClass, int startTime, int endTime) {
+  Future<ReadRecordResponse> readData(RecordClass recordClass, int startTime, int endTime) {
     // TODO: implement readData
     throw UnimplementedError();
   }

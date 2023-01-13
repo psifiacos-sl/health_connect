@@ -1,32 +1,23 @@
 import 'package:health_connect/domain/record_model/_base/record.dart';
 import 'package:health_connect/domain/record_response_model.dart';
 
-abstract class ReadResponse<T> {
-  static ReadResponseSuccess<RecordResponseModel> success<T>({
-    required RecordResponseModel value,
-  }) =>
-      ReadResponseSuccess(recordResponseModel: value);
+abstract class ReadRecordResponse {
+  static RecordResponseModel success(
+          {required String pageToken, required List<Record> records}) =>
+      RecordResponseModel(pageToken: pageToken, records: records);
 
-  static ReadRecordResponseError<ReadRecordError> error<T>(
-          {required ReadRecordError error}) =>
-      ReadRecordResponseError(
-        error: error,
-      );
+  static ReadRecordError error({required int code, required String message}) =>
+      ReadRecordError(code: code, message: message);
 }
 
-class ReadResponseSuccess<T> extends ReadResponse<RecordResponseModel> {
-  final RecordResponseModel recordResponseModel;
+class RecordResponseModel extends ReadRecordResponse {
+  final String pageToken;
+  final List<Record> records;
 
-  ReadResponseSuccess({required this.recordResponseModel});
+  RecordResponseModel({required this.pageToken, required this.records});
 }
 
-class ReadRecordResponseError<T> extends ReadResponse<ReadRecordError> {
-  final ReadRecordError error;
-
-  ReadRecordResponseError({required this.error});
-}
-
-class ReadRecordError {
+class ReadRecordError extends ReadRecordResponse {
   final int code;
   final String? message;
 

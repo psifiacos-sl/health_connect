@@ -55,7 +55,7 @@ class MethodChannelHealthConnect extends HealthConnectPlatform {
   }
 
   @override
-  Future<ReadResponse> readData(
+  Future<ReadRecordResponse> readData(
       RecordClass recordClass, int startTime, int endTime) async {
     assert(recordClass.name.toLowerCase().endsWith("read"));
     final result = await methodChannel.invokeMethod(Constants.readData, {
@@ -63,19 +63,17 @@ class MethodChannelHealthConnect extends HealthConnectPlatform {
       Constants.startTime: startTime,
       Constants.endTime: endTime
     }).onError((error, stackTrace) {
-      return ReadResponse.error(
-          error: ReadRecordError(code: 1, message: error.toString()));
+      return ReadRecordResponse.error(code: 1, message: error.toString());
     });
     final resultJson = jsonDecode(result);
     final records = (resultJson[Constants.records] as Iterable).isNotEmpty
         ? (resultJson[Constants.records] as Iterable)
         : [];
-    final readResponseResult = ReadResponse.success<RecordResponseModel>(
-        value: RecordResponseModel(
-            pageToken: resultJson[Constants.pageToken],
-            records: records
-                .map((e) => RecordMapper.getRecordMapper(recordClass, e))
-                .toList()));
+    final readResponseResult = ReadRecordResponse.success(
+        pageToken: resultJson[Constants.pageToken],
+        records: records
+            .map((e) => RecordMapper.getRecordMapper(recordClass, e))
+            .toList());
     return readResponseResult;
   }
 
