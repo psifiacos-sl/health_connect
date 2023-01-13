@@ -1,8 +1,7 @@
 import 'package:health_connect/domain/record_model/_base/record.dart';
-import 'package:health_connect/domain/record_response_model.dart';
 
 abstract class ReadRecordResponse {
-  static RecordResponseModel success(
+  static RecordResponseModel<Record> success(
           {required String pageToken, required List<Record> records}) =>
       RecordResponseModel(pageToken: pageToken, records: records);
 
@@ -10,9 +9,9 @@ abstract class ReadRecordResponse {
       ReadRecordError(code: code, message: message);
 }
 
-class RecordResponseModel extends ReadRecordResponse {
+class RecordResponseModel<T extends Record> extends ReadRecordResponse {
   final String pageToken;
-  final List<Record> records;
+  final List<T> records;
 
   RecordResponseModel({required this.pageToken, required this.records});
 }
