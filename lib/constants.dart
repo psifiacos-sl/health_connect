@@ -14,6 +14,8 @@ class Constants {
   static const metadata = "metadata";
   static const packageName = "packageName";
   static const type = "type";
+  static const eventType = "eventType";
+  static const exerciseType = "exerciseType";
   static const manufacturer = "manufacturer";
   static const model = "model";
   static const id = "id";
@@ -51,6 +53,7 @@ class Constants {
   static const notes = "notes";
   static const floors = "floors";
   static const beatsPerMinute = "beatsPerMinute";
+  static const breathsPerMinute = "breathsPerMinute";
   static const height = "height";
   static const circumference = "circumference";
   static const volume = "volume";

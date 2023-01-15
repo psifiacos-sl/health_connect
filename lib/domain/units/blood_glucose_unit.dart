@@ -1,14 +1,12 @@
 import 'package:health_connect/constants.dart';
+import 'package:health_connect/domain/units/data_unit.dart';
 import 'package:health_connect/enums.dart';
 
-class BloodGlucoseUnit {
+class BloodGlucoseUnit extends DataUnit {
   final double value;
   final BloodGlucoseTypes type;
 
   BloodGlucoseUnit({required this.value, required this.type});
-
-  String get unit =>
-      type == BloodGlucoseTypes.MILLIGRAMS_PER_DECILITER ? "mg/dL" : "mmol/L";
 
   factory BloodGlucoseUnit.fromJson(Map<String, dynamic> json) {
     return BloodGlucoseUnit(
@@ -16,4 +14,11 @@ class BloodGlucoseUnit {
         type: BloodGlucoseTypes.values
             .firstWhere((element) => element.name == json[Constants.type]));
   }
+
+  @override
+  String get unit =>
+      type == BloodGlucoseTypes.MILLIGRAMS_PER_DECILITER ? "mg/dL" : "mmol/L";
+
+  @override
+  num get data => value;
 }

@@ -107,9 +107,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   void readData() async {
-    final st = DateTime.now().subtract(Duration(seconds: 100000));
-    final et = DateTime.now();
-    final data = await _healthConnectPlugin.readData(RecordClass.ActiveCaloriesBurnedRead,
+    final st = DateTime.now().subtract(Duration(days: 365));
+    final et = DateTime.now().add(Duration(days: 365));
+    final data = await _healthConnectPlugin.readData(RecordClass.BodyFatRead,
         startTime: st.millisecondsSinceEpoch,
         endTime: et.millisecondsSinceEpoch);
     print(data.toString());
