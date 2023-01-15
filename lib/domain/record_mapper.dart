@@ -6,6 +6,7 @@ import 'package:health_connect/domain/record_model/blood_glucose_record.dart';
 import 'package:health_connect/domain/record_model/blood_pressure_record.dart';
 import 'package:health_connect/domain/record_model/body_fat_record.dart';
 import 'package:health_connect/domain/record_model/body_temperature_record.dart';
+-import 'package:health_connect/domain/record_model/body_water_mass_record.dart';
 import 'package:health_connect/domain/record_model/bone_mass_record.dart';
 import 'package:health_connect/domain/record_model/cervical_mucus_record.dart';
 import 'package:health_connect/domain/record_model/cycling_pedaling_cadence_record.dart';
@@ -53,6 +54,8 @@ class RecordMapper {
         return BloodPressureRecord.fromJson(json);
       case RecordClass.BodyFatRead:
         return BodyFatRecord.fromJson(json);
+      case RecordClass.BodyWaterMassRead:
+        return BodyWaterMassRecord.fromJson(json);
       case RecordClass.BodyTemperatureRead:
         return BodyTemperatureRecord.fromJson(json);
       case RecordClass.BoneMassRead:
