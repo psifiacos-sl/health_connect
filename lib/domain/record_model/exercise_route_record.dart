@@ -1,5 +1,6 @@
 import 'package:health_connect/constants.dart';
 import 'package:health_connect/domain/record_model/_base/interval_record.dart';
+import 'package:health_connect/domain/units/data_no_unit.dart';
 import 'package:health_connect/domain/units/length_unit.dart';
 
 class ExerciseRouteRecord extends IntervalRecord {
@@ -19,25 +20,30 @@ class ExerciseRouteRecord extends IntervalRecord {
 }
 
 class ExerciseRouteRecordSample {
-  final double latitude;
-  final double longitude;
-  final LengthUnit? horizontalAccuracy, altitude, verticalAccuracy;
+  final DataNoUnit dataNoUnitLatitude;
+  final DataNoUnit dataNoUnitLongitude;
+  final LengthUnit horizontalAccuracy, altitude, verticalAccuracy;
 
   ExerciseRouteRecordSample(
-      {required this.latitude,
-      required this.longitude,
-      this.horizontalAccuracy,
-      this.altitude,
-      this.verticalAccuracy});
+      {required this.dataNoUnitLatitude,
+      required this.dataNoUnitLongitude,
+      required this.horizontalAccuracy,
+      required this.altitude,
+      required this.verticalAccuracy});
 
   factory ExerciseRouteRecordSample.fromJson(Map<String, dynamic> json) {
     return ExerciseRouteRecordSample(
-      latitude: json[Constants.latitude],
-      longitude: json[Constants.longitude],
-      horizontalAccuracy:
-          LengthUnit.fromJson(json[Constants.horizontalAccuracy]),
-      altitude: LengthUnit.fromJson(json[Constants.altitude]),
-      verticalAccuracy: LengthUnit.fromJson(json[Constants.verticalAccuracy]),
+      dataNoUnitLatitude: DataNoUnit(json[Constants.latitude] ?? 0.0),
+      dataNoUnitLongitude: DataNoUnit(json[Constants.longitude] ?? 0.0),
+      horizontalAccuracy: json[Constants.horizontalAccuracy] != null
+          ? LengthUnit.fromJson(json[Constants.horizontalAccuracy])
+          : LengthUnit.defValue,
+      altitude: json[Constants.altitude] != null
+          ? LengthUnit.fromJson(json[Constants.altitude])
+          : LengthUnit.defValue,
+      verticalAccuracy: json[Constants.verticalAccuracy] != null
+          ? LengthUnit.fromJson(json[Constants.verticalAccuracy])
+          : LengthUnit.defValue,
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:health_connect/constants.dart';
 import 'package:health_connect/domain/record_model/_base/interval_record.dart';
+import 'package:health_connect/domain/units/data_no_unit.dart';
 
 class HeartRateRecord extends IntervalRecord {
   final List<HeartRateRecordSample> samples;
@@ -17,12 +18,12 @@ class HeartRateRecord extends IntervalRecord {
 }
 
 class HeartRateRecordSample {
-  final int beatsPerMinute;
+  final DataNoUnit dataNoUnit;
 
-  HeartRateRecordSample({required this.beatsPerMinute});
+  HeartRateRecordSample({required this.dataNoUnit});
 
   factory HeartRateRecordSample.fromJson(Map<String, dynamic> json) {
     return HeartRateRecordSample(
-        beatsPerMinute: json[Constants.beatsPerMinute]);
+        dataNoUnit: DataNoUnit(json[Constants.beatsPerMinute]));
   }
 }
