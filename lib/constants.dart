@@ -54,6 +54,7 @@ class Constants {
   static const floors = "floors";
   static const beatsPerMinute = "beatsPerMinute";
   static const breathsPerMinute = "breathsPerMinute";
+  static const heartRateVariabilityMillis = "heartRateVariabilityMillis";
   static const height = "height";
   static const circumference = "circumference";
   static const volume = "volume";
@@ -63,6 +64,8 @@ class Constants {
   static const velocity = "velocity";
   static const vo2MillilitersPerMinuteKilogram = "vo2MillilitersPerMinuteKilogram";
 
+
+  static const notImplementedYet = "notImplementedYet";
   static const recordClassListArgKey = "recordClassListArgKey";
   static const recordClassArgKey = "recordClassArgKey";
 }

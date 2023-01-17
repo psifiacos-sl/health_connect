@@ -1,5 +1,9 @@
 import android.annotation.SuppressLint
+import androidx.health.connect.client.impl.converters.datatype.toDataTypeKClass
+import androidx.health.connect.client.impl.converters.datatype.toDataTypeName
 import androidx.health.connect.client.impl.converters.permission.toProtoPermission
+import androidx.health.connect.client.permission.AccessType
+import androidx.health.connect.client.permission.AccessTypes
 import androidx.health.connect.client.permission.HealthPermission
 import com.metriri.health_connect.Constants
 
