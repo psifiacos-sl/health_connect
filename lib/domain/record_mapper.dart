@@ -24,7 +24,6 @@ import 'package:health_connect/domain/record_model/floors_climbed_record.dart';
 import 'package:health_connect/domain/record_model/heart_rate_record.dart';
 import 'package:health_connect/domain/record_model/heart_rate_variability_rmssd_record.dart';
 import 'package:health_connect/domain/record_model/height_record.dart';
-import 'package:health_connect/domain/record_model/hip_circumference_record.dart';
 import 'package:health_connect/domain/record_model/hydration_record.dart';
 import 'package:health_connect/domain/record_model/lean_body_mass_record.dart';
 import 'package:health_connect/domain/record_model/menstruation_flow_record.dart';
