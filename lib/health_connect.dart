@@ -43,7 +43,7 @@ class HealthConnect {
   }
 
   Future<void> writeData() async {
-    final result = await HealthConnectPlatform.instance.write();
-    return result;
+    // final result = await HealthConnectPlatform.instance.write();
+    // return result;
   }
 }
