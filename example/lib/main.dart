@@ -95,21 +95,24 @@ class _MyAppState extends State<MyApp> {
   }
 
   void checkPermissions() async {
-    final permissions = await _healthConnectPlugin
-        .checkPermissions([RecordClass.StepsRead, RecordClass.StepsWrite]);
+    final permissions =
+        await _healthConnectPlugin.checkPermissions(RecordClass.values);
     print(permissions.toString());
   }
 
   void requestPermissions() async {
-    final permissions = await _healthConnectPlugin
-        .requestPermissions([RecordClass.BodyFatRead, RecordClass.BodyFatRead,]);
+    final permissions = await _healthConnectPlugin.requestPermissions(RecordClass.values);
+    if(permissions.isEmpty){
+      final installed = await LaunchApp
+    }
     print(permissions.toString());
   }
 
   void readData() async {
     final st = DateTime.now().subtract(Duration(days: 365));
     final et = DateTime.now().add(Duration(days: 365));
-    final data = await _healthConnectPlugin.readData(RecordClass.RepetitionsRead ,
+    final data = await _healthConnectPlugin.readData(
+        RecordClass.RepetitionsRead,
         startTime: st.millisecondsSinceEpoch,
         endTime: et.millisecondsSinceEpoch);
     print(data.toString());

@@ -1,6 +1,5 @@
 package com.metriri.health_connect
 
-import androidx.health.connect.client.permission.AccessTypes
 import androidx.health.connect.client.records.*
 import kotlin.reflect.KClass
 
