@@ -66,8 +66,8 @@ class RecordMapper {
         return BodyFatRecord.fromJson(json);
       case RecordClass.BodyTemperatureRead:
         return BodyTemperatureRecord.fromJson(json);
-      case RecordClass.BodyWaterMassRead:
-        return BodyWaterMassRecord.fromJson(json);
+      // case RecordClass.BodyWaterMassRead:
+      //   return BodyWaterMassRecord.fromJson(json);
       case RecordClass.BoneMassRead:
         return BoneMassRecord.fromJson(json);
       case RecordClass.CervicalMucusRead:
@@ -82,8 +82,8 @@ class RecordMapper {
         return FloorsClimbedRecord.fromJson(json);
       case RecordClass.HeartRateSeriesRead:
         return HeartRateRecord.fromJson(json);
-      case RecordClass.HeartRateVariabilityRmssdRead:
-        return HeartRateVariabilityRmssdRecord.fromJson(json);
+      // case RecordClass.HeartRateVariabilityRmssdRead:
+      //   return HeartRateVariabilityRmssdRecord.fromJson(json);
       case RecordClass.HeightRead:
         return HeightRecord.fromJson(json);
       case RecordClass.HydrationRead:
