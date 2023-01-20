@@ -7,8 +7,8 @@ class PercentageUnit extends DataUnit{
   PercentageUnit(this.value);
 
 
-  factory PercentageUnit.fromJson(Map<String, dynamic> json) {
-    return PercentageUnit(json[Constants.value]);
+  factory PercentageUnit.fromJson(Map<String, dynamic>? json) {
+    return PercentageUnit(json?[Constants.value] ?? 0.0);
   }
 
   @override

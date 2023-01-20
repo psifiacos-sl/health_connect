@@ -15,9 +15,7 @@ class Device {
   factory Device.fromJson(Map<String, dynamic>? json) {
     return Device(
         type: DeviceTypes.values.firstWhere(
-            (element) => element.index == json?[Constants.type], orElse: () {
-          return DeviceTypes.UNKNOWN;
-        }),
+            (element) => element.index == json?[Constants.type], orElse: () => DeviceTypes.UNKNOWN),
         manufacturer: json?[Constants.manufacturer],
         model: json?[Constants.model]);
   }

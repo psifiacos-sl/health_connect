@@ -8,11 +8,12 @@ class VelocityUnit extends DataUnit {
 
   VelocityUnit({required this.value, required this.type});
 
-  factory VelocityUnit.fromJson(Map<String, dynamic> json) {
+  factory VelocityUnit.fromJson(Map<String, dynamic>? json) {
     return VelocityUnit(
-        value: json[Constants.value],
-        type: VelocityTypes.values
-            .firstWhere((element) => element.name == json[Constants.type]));
+        value: json?[Constants.value] ?? 0.0,
+        type: VelocityTypes.values.firstWhere(
+            (element) => element.name == json?[Constants.type],
+            orElse: () => VelocityTypes.METERS_PER_SECOND));
   }
 
   @override

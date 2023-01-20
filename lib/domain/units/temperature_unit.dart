@@ -8,11 +8,12 @@ class TemperatureUnit extends DataUnit {
 
   TemperatureUnit({required this.value, required this.type});
 
-  factory TemperatureUnit.fromJson(Map<String, dynamic> json) {
+  factory TemperatureUnit.fromJson(Map<String, dynamic>? json) {
     return TemperatureUnit(
-        value: json[Constants.value],
-        type: TemperatureTypes.values
-            .firstWhere((element) => element.name == json[Constants.type]));
+        value: json?[Constants.value] ?? 0.0,
+        type: TemperatureTypes.values.firstWhere(
+            (element) => element.name == json?[Constants.type],
+            orElse: () => TemperatureTypes.CELSIUS));
   }
 
   @override

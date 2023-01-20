@@ -9,7 +9,7 @@ class DataOrigin {
     return DataOrigin(packageName: "");
   }
 
-  factory DataOrigin.fromJson(Map<String, dynamic> json){
-    return DataOrigin(packageName: json[Constants.packageName]);
+  factory DataOrigin.fromJson(Map<String, dynamic>? json){
+    return DataOrigin(packageName: json?[Constants.packageName] ?? "");
   }
 }

@@ -7,10 +7,10 @@ class WeightRecord extends InstantaneousRecord {
 
   WeightRecord({required this.mass, required super.metadata});
 
-  factory WeightRecord.fromJson(Map<String, dynamic> json) {
+  factory WeightRecord.fromJson(Map<String, dynamic>? json) {
     final parent = InstantaneousRecord.fromJson(json);
     return WeightRecord(
         metadata: parent.metadata,
-        mass: MassUnit.fromJson(json[Constants.mass]));
+        mass: MassUnit.fromJson(json?[Constants.mass]));
   }
 }

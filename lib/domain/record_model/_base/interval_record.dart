@@ -16,7 +16,7 @@ class IntervalRecord extends Record {
       // this.startZoneOffset
       });
 
-  factory IntervalRecord.fromJson(Map<String, dynamic> json) {
+  factory IntervalRecord.fromJson(Map<String, dynamic>? json) {
     final record = Record.fromJson(json);
     return IntervalRecord(
         metadata: record.metadata,

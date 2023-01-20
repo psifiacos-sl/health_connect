@@ -8,11 +8,12 @@ class MassUnit extends DataUnit {
 
   MassUnit({required this.value, required this.type});
 
-  factory MassUnit.fromJson(Map<String, dynamic> json) {
+  factory MassUnit.fromJson(Map<String, dynamic>? json) {
     return MassUnit(
-        value: json[Constants.value],
-        type: MassTypes.values
-            .firstWhere((element) => element.name == json[Constants.type]));
+        value: json?[Constants.value] ?? 0.0,
+        type: MassTypes.values.firstWhere(
+            (element) => element.name == json?[Constants.type],
+            orElse: () => MassTypes.KILOGRAMS));
   }
 
   @override

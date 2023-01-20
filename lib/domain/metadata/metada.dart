@@ -28,13 +28,13 @@ class Metadata {
     );
   }
 
-  factory Metadata.fromJson(Map<String, dynamic> json) {
+  factory Metadata.fromJson(Map<String, dynamic>? json) {
     return Metadata(
-        id: json[Constants.id],
-        dataOrigin: DataOrigin.fromJson(json[Constants.dataOrigin]),
+        id: json?[Constants.id] ?? "",
+        dataOrigin: DataOrigin.fromJson(json?[Constants.dataOrigin]),
         // lastModifiedTime: json[Constants.lastModifiedTime],
-        clientRecordVersion: json[Constants.clientRecordVersion],
-        clientRecordId: json[Constants.clientRecordId],
-        device: Device.fromJson(json[Constants.device]));
+        clientRecordVersion: json?[Constants.clientRecordVersion] ?? -1,
+        clientRecordId: json?[Constants.clientRecordId] ?? "",
+        device: Device.fromJson(json?[Constants.device]));
   }
 }

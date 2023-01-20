@@ -30,6 +30,7 @@ class CyclingPedalingCadenceRecordSample {
   factory CyclingPedalingCadenceRecordSample.fromJson(
       Map<String, dynamic> json) {
     return CyclingPedalingCadenceRecordSample(
-        dataNoUnit: DataNoUnit(json[Constants.revolutionsPerMinute], customUnit: Constants.revolutionsPerMinute));
+        dataNoUnit: DataNoUnit(json[Constants.revolutionsPerMinute],
+            customUnit: Constants.revolutionsPerMinute));
   }
 }

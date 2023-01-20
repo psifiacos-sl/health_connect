@@ -7,8 +7,8 @@ class Record {
 
   Record({this.metadata});
 
-  factory Record.fromJson(Map<String, dynamic> json) {
-    final metadata = Metadata.fromJson(json[Constants.metadata]);
+  factory Record.fromJson(Map<String, dynamic>? json) {
+    final metadata = Metadata.fromJson(json?[Constants.metadata]);
     return Record(metadata: metadata);
   }
 }

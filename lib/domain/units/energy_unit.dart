@@ -8,11 +8,12 @@ class EnergyUnit extends DataUnit {
 
   EnergyUnit({required this.type, required this.value});
 
-  factory EnergyUnit.fromJson(Map<String, dynamic> json) {
+  factory EnergyUnit.fromJson(Map<String, dynamic>? json) {
     return EnergyUnit(
-        value: json[Constants.value],
-        type: EnergyTypes.values
-            .firstWhere((element) => element.name == json[Constants.type]));
+        value: json?[Constants.value] ?? 0.0,
+        type: EnergyTypes.values.firstWhere(
+            (element) => element.name == json?[Constants.type],
+            orElse: () => EnergyTypes.CALORIES));
   }
 
   @override

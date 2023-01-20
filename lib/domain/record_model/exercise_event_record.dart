@@ -13,7 +13,8 @@ class ExerciseEventRecord extends IntervalRecord {
     return ExerciseEventRecord(
         metadata: parent.metadata,
         dataNoUnit: DataNoUnit(ExerciseEventType.values
-            .firstWhere((element) => element.name == json[Constants.eventType])
+            .firstWhere((element) => element.name == json[Constants.eventType],
+                orElse: () => ExerciseEventType.EVENT_TYPE_UNKNOWN)
             .index));
   }
 }

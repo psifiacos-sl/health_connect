@@ -10,9 +10,7 @@ class ExerciseLapRecord extends IntervalRecord {
   factory ExerciseLapRecord.fromJson(Map<String, dynamic> json) {
     final parent = IntervalRecord.fromJson(json);
     return ExerciseLapRecord(
-        length: json[Constants.length] != null
-            ? LengthUnit.fromJson(json[Constants.length])
-            : LengthUnit.defValue,
+        length: LengthUnit.fromJson(json[Constants.length]),
         metadata: parent.metadata);
   }
 }

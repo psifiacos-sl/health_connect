@@ -10,11 +10,12 @@ class LengthUnit extends DataUnit {
 
   static get defValue => LengthUnit(value: 0, type: LengthTypes.METERS);
 
-  factory LengthUnit.fromJson(Map<String, dynamic> json) {
+  factory LengthUnit.fromJson(Map<String, dynamic>? json) {
     return LengthUnit(
-        value: json[Constants.value],
+        value: json?[Constants.value] ?? 0.0,
         type: LengthTypes.values
-            .firstWhere((element) => element.name == json[Constants.type]));
+            .firstWhere((element) => element.name == json?[Constants.type],
+            orElse: () => LengthTypes.METERS));
   }
 
   @override

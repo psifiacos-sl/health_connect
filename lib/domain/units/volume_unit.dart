@@ -8,11 +8,12 @@ class VolumeUnit extends DataUnit {
 
   VolumeUnit({required this.value, required this.type});
 
-  factory VolumeUnit.fromJson(Map<String, dynamic> json) {
+  factory VolumeUnit.fromJson(Map<String, dynamic>? json) {
     return VolumeUnit(
-        value: json[Constants.value],
-        type: VolumeTypes.values
-            .firstWhere((element) => element.name == json[Constants.type]));
+        value: json?[Constants.value] ?? 0.0,
+        type: VolumeTypes.values.firstWhere(
+            (element) => element.name == json?[Constants.type],
+            orElse: () => VolumeTypes.LITERS));
   }
 
   @override

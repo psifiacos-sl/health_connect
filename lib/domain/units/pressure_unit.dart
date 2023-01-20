@@ -6,8 +6,8 @@ class PressureUnit extends DataUnit{
 
   PressureUnit(this.value);
 
-  factory PressureUnit.fromJson(Map<String, dynamic> json) {
-    return PressureUnit(json[Constants.value]);
+  factory PressureUnit.fromJson(Map<String, dynamic>? json) {
+    return PressureUnit(json?[Constants.value] ?? 0.0);
   }
 
   @override

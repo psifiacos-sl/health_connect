@@ -8,11 +8,12 @@ class BloodGlucoseUnit extends DataUnit {
 
   BloodGlucoseUnit({required this.value, required this.type});
 
-  factory BloodGlucoseUnit.fromJson(Map<String, dynamic> json) {
+  factory BloodGlucoseUnit.fromJson(Map<String, dynamic>? json) {
     return BloodGlucoseUnit(
-        value: json[Constants.value],
-        type: BloodGlucoseTypes.values
-            .firstWhere((element) => element.name == json[Constants.type]));
+        value: json?[Constants.value] ?? 0.0,
+        type: BloodGlucoseTypes.values.firstWhere(
+            (element) => element.name == json?[Constants.type],
+            orElse: () => BloodGlucoseTypes.MILLIMOLES_PER_LITER));
   }
 
   @override

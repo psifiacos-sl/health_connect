@@ -8,7 +8,7 @@ class InstantaneousRecord extends Record {
     // required this.date,
   });
 
-  factory InstantaneousRecord.fromJson(Map<String, dynamic> json) {
+  factory InstantaneousRecord.fromJson(Map<String, dynamic>? json) {
     final record = Record.fromJson(json);
     return InstantaneousRecord(
       metadata: record.metadata,

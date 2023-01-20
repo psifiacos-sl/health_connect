@@ -2,17 +2,18 @@ import 'package:health_connect/constants.dart';
 import 'package:health_connect/domain/units/data_unit.dart';
 import 'package:health_connect/enums.dart';
 
-class PowerUnit extends DataUnit{
+class PowerUnit extends DataUnit {
   final double value;
   final PowerTypes type;
 
   PowerUnit({required this.value, required this.type});
 
-  factory PowerUnit.fromJson(Map<String, dynamic> json) {
+  factory PowerUnit.fromJson(Map<String, dynamic>? json) {
     return PowerUnit(
-        value: json[Constants.value],
-        type: PowerTypes.values
-            .firstWhere((element) => element.name == json[Constants.type]));
+        value: json?[Constants.value],
+        type: PowerTypes.values.firstWhere(
+            (element) => element.name == json?[Constants.type],
+            orElse: () => PowerTypes.WATTS));
   }
 
   @override

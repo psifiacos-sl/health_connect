@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:health_connect/domain/read_record_response.dart';
 import 'package:health_connect/enums.dart';
 import 'package:health_connect/health_connect.dart';
 
@@ -75,7 +76,7 @@ class _MyAppState extends State<MyApp> {
                 child: Text("Request")),
             ElevatedButton(
                 onPressed: () async {
-                  readData();
+                  readMultiple();
                 },
                 child: Text("Read")),
             ElevatedButton(
@@ -101,21 +102,29 @@ class _MyAppState extends State<MyApp> {
   }
 
   void requestPermissions() async {
-    final permissions = await _healthConnectPlugin.requestPermissions(RecordClass.values);
-    if(permissions.isEmpty){
-      final installed = await LaunchApp
-    }
+    final permissions =
+        await _healthConnectPlugin.requestPermissions(RecordClass.values);
+    if (permissions.isEmpty) {}
     print(permissions.toString());
   }
 
-  void readData() async {
+  void readMultiple() async {
+    final futures = RecordClass.values.where((element) => element.name.endsWith("Read")).map((e) => readData(e)).toList();
+    final res = await Future.wait(futures);
+    final List<ReadRecordResponse> toSave = [];
+    for (var r in res) {
+      toSave.add(r);
+    }
+    print(toSave.length);
+  }
+
+  Future<ReadRecordResponse> readData(RecordClass rc) async {
     final st = DateTime.now().subtract(Duration(days: 365));
     final et = DateTime.now().add(Duration(days: 365));
-    final data = await _healthConnectPlugin.readData(
-        RecordClass.RepetitionsRead,
+    final data = await _healthConnectPlugin.readData(rc,
         startTime: st.millisecondsSinceEpoch,
         endTime: et.millisecondsSinceEpoch);
-    print(data.toString());
+    return data;
   }
 
   void writeData() async {

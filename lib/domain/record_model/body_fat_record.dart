@@ -10,6 +10,6 @@ class BodyFatRecord extends InstantaneousRecord {
   factory BodyFatRecord.fromJson(Map<String, dynamic> json) {
     final parent = InstantaneousRecord.fromJson(json);
     return BodyFatRecord(
-        metadata: parent.metadata, percentage: json[Constants.percentage]);
+        metadata: parent.metadata, percentage: PercentageUnit.fromJson(json[Constants.percentage]));
   }
 }

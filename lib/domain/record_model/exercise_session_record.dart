@@ -13,7 +13,8 @@ class ExerciseSessionRecord extends IntervalRecord {
     return ExerciseSessionRecord(
         dataNoUnit: DataNoUnit(ExerciseType.values
             .firstWhere(
-                (element) => element.name == json[Constants.exerciseType])
+                (element) => element.name == json[Constants.exerciseType],
+                orElse: () => ExerciseType.EXERCISE_TYPE_OTHER_WORKOUT)
             .index),
         metadata: parent.metadata);
   }
