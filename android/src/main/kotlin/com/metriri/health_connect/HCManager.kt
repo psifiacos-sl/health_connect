@@ -89,7 +89,7 @@ object HCManager {
                 val kClass = Constants.RecordClass.valueOf(recordClass).kC
                 val result = hCClient?.readRecords(
                     ReadRecordsRequest(
-                        kClass,
+                        BodyFatRecord::class,
                         timeRangeFilter = TimeRangeFilter.between(
                             Instant.ofEpochMilli(startTime), Instant.ofEpochMilli(endTime)
                         ),

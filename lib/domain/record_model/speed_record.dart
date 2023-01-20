@@ -19,11 +19,13 @@ class SpeedRecord extends IntervalRecord {
 
 class SpeedRecordSample {
   final VelocityUnit velocity;
+  final DateTime? time;
 
-  SpeedRecordSample({required this.velocity});
+  SpeedRecordSample({required this.velocity, this.time});
 
   factory SpeedRecordSample.fromJson(Map<String, dynamic> json) {
     return SpeedRecordSample(
-        velocity: VelocityUnit.fromJson(json[Constants.velocity]));
+        velocity: VelocityUnit.fromJson(json[Constants.velocity]),
+        time: json[Constants.time]);
   }
 }

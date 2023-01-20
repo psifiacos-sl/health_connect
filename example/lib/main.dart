@@ -3,6 +3,8 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:health_connect/domain/read_record_response.dart';
+import 'package:health_connect/domain/record_model/_base/record.dart';
+import 'package:health_connect/domain/record_model/heart_rate_record.dart';
 import 'package:health_connect/enums.dart';
 import 'package:health_connect/health_connect.dart';
 
@@ -109,7 +111,17 @@ class _MyAppState extends State<MyApp> {
   }
 
   void readMultiple() async {
-    final futures = RecordClass.values.where((element) => element.name.endsWith("Read")).map((e) => readData(e)).toList();
+    final futures = [
+      RecordClass.TotalCaloriesBurnedRead,
+      RecordClass.SpeedSeriesRead,
+      RecordClass.HeartRateSeriesRead,
+      RecordClass.DistanceRead,
+      RecordClass.ActivitySessionRead,
+      RecordClass.CyclingPedalingCadenceSeriesRead
+    ]
+        .where((element) => element.name.endsWith("Read"))
+        .map((e) => readData(e))
+        .toList();
     final res = await Future.wait(futures);
     final List<ReadRecordResponse> toSave = [];
     for (var r in res) {
@@ -119,7 +131,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<ReadRecordResponse> readData(RecordClass rc) async {
-    final st = DateTime.now().subtract(Duration(days: 365));
+    final st = DateTime.now().subtract(Duration(days: 1));
     final et = DateTime.now().add(Duration(days: 365));
     final data = await _healthConnectPlugin.readData(rc,
         startTime: st.millisecondsSinceEpoch,

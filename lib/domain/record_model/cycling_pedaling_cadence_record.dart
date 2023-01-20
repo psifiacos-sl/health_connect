@@ -24,13 +24,15 @@ class CyclingPedalingCadenceRecord extends IntervalRecord {
 
 class CyclingPedalingCadenceRecordSample {
   final DataNoUnit dataNoUnit;
+  final DateTime? time;
 
-  CyclingPedalingCadenceRecordSample({required this.dataNoUnit});
+  CyclingPedalingCadenceRecordSample({required this.dataNoUnit, this.time});
 
   factory CyclingPedalingCadenceRecordSample.fromJson(
       Map<String, dynamic> json) {
     return CyclingPedalingCadenceRecordSample(
         dataNoUnit: DataNoUnit(json[Constants.revolutionsPerMinute],
-            customUnit: Constants.revolutionsPerMinute));
+            customUnit: Constants.revolutionsPerMinute),
+        time: json[Constants.time]);
   }
 }

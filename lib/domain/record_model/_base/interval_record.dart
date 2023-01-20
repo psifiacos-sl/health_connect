@@ -3,25 +3,25 @@ import 'package:health_connect/domain/record_model/_base/record.dart';
 import 'package:health_connect/domain/zoneoffset.dart';
 
 class IntervalRecord extends Record {
-  // final DateTime startTime;
-  // final DateTime endTime;
-  // final ZoneOffset? startZoneOffset;
-  // final ZoneOffset? endZoneOffset;
+  final DateTime? startTime;
+  final DateTime? endTime;
+  final String? startZoneOffset;
+  final String? endZoneOffset;
 
   IntervalRecord(
       {required super.metadata,
-      // required this.startTime,
-      // required this.endTime,
-      // this.endZoneOffset,
-      // this.startZoneOffset
-      });
+      this.startTime,
+      this.endTime,
+      this.endZoneOffset,
+      this.startZoneOffset});
 
   factory IntervalRecord.fromJson(Map<String, dynamic>? json) {
     final record = Record.fromJson(json);
     return IntervalRecord(
         metadata: record.metadata,
-        // startTime: json[Constants.startTime],
-        // endTime: json[Constants.endTime]
-    );
+        startTime: json?[Constants.startTime],
+        endTime: json?[Constants.endTime],
+        startZoneOffset: json?[Constants.startZoneOffset],
+        endZoneOffset: json?[Constants.endZoneOffset]);
   }
 }

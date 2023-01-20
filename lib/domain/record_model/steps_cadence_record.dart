@@ -19,10 +19,13 @@ class StepsCadenceRecord extends IntervalRecord {
 
 class StepsCadenceRecordSample {
   final DataNoUnit dataNoUnit;
+  final DateTime? time;
 
-  StepsCadenceRecordSample({required this.dataNoUnit});
+  StepsCadenceRecordSample({required this.dataNoUnit, this.time});
 
   factory StepsCadenceRecordSample.fromJson(Map<String, dynamic> json) {
-    return StepsCadenceRecordSample(dataNoUnit: DataNoUnit(json[Constants.rate]));
+    return StepsCadenceRecordSample(
+        dataNoUnit: DataNoUnit(json[Constants.rate]),
+        time: json[Constants.time]);
   }
 }

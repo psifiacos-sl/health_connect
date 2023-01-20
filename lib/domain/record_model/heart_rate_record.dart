@@ -19,11 +19,13 @@ class HeartRateRecord extends IntervalRecord {
 
 class HeartRateRecordSample {
   final DataNoUnit dataNoUnit;
+  final DateTime? time;
 
-  HeartRateRecordSample({required this.dataNoUnit});
+  HeartRateRecordSample({required this.dataNoUnit, this.time});
 
   factory HeartRateRecordSample.fromJson(Map<String, dynamic> json) {
     return HeartRateRecordSample(
-        dataNoUnit: DataNoUnit(json[Constants.beatsPerMinute]));
+        dataNoUnit: DataNoUnit(json[Constants.beatsPerMinute]),
+        time: json[Constants.time]);
   }
 }

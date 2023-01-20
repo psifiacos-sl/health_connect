@@ -25,8 +25,11 @@ class Constants {
   static const clientRecordId = "clientRecordId";
   static const device = "device";
   static const startTime = "startTime";
+  static const startZoneOffset = "startZoneOffset";
   static const endTime = "endTime";
+  static const endZoneOffset = "endZoneOffset";
   static const time = "time";
+  static const zoneOffset = "zoneOffset";
   static const pageToken = "pageToken";
   static const records = "records";
   static const count = "count";
