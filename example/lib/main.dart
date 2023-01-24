@@ -112,12 +112,12 @@ class _MyAppState extends State<MyApp> {
 
   void readMultiple() async {
     final futures = [
-      RecordClass.TotalCaloriesBurnedRead,
-      RecordClass.SpeedSeriesRead,
-      RecordClass.HeartRateSeriesRead,
-      RecordClass.DistanceRead,
-      RecordClass.ActivitySessionRead,
-      RecordClass.CyclingPedalingCadenceSeriesRead
+      // RecordClass.CyclingPedalingCadenceSeriesRead,
+      // RecordClass.ActivitySessionRead,
+      // RecordClass.SpeedSeriesRead,
+      // RecordClass.HeartRateSeriesRead,
+      // RecordClass.DistanceRead,
+      RecordClass.Vo2MaxRead,
     ]
         .where((element) => element.name.endsWith("Read"))
         .map((e) => readData(e))
@@ -131,7 +131,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<ReadRecordResponse> readData(RecordClass rc) async {
-    final st = DateTime.now().subtract(Duration(days: 1));
+    final st = DateTime.now().subtract(Duration(days: 10));
     final et = DateTime.now().add(Duration(days: 365));
     final data = await _healthConnectPlugin.readData(rc,
         startTime: st.millisecondsSinceEpoch,

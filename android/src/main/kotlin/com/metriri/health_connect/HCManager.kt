@@ -10,10 +10,7 @@ import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.response.InsertRecordsResponse
 import androidx.health.connect.client.response.ReadRecordsResponse
 import androidx.health.connect.client.time.TimeRangeFilter
-import androidx.health.connect.client.units.BloodGlucose
 import androidx.health.connect.client.units.Energy
-import androidx.health.connect.client.units.Temperature
-import androidx.health.connect.client.units.Velocity
 import com.google.gson.Gson
 import io.flutter.embedding.android.FlutterFragmentActivity
 import kotlinx.coroutines.CoroutineScope
@@ -22,9 +19,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.ZoneOffset
-import java.time.temporal.TemporalUnit
-import java.util.Date
-import kotlin.reflect.KClass
 
 object HCManager {
 
@@ -89,7 +83,7 @@ object HCManager {
                 val kClass = Constants.RecordClass.valueOf(recordClass).kC
                 val result = hCClient?.readRecords(
                     ReadRecordsRequest(
-                        BodyFatRecord::class,
+                        kClass,
                         timeRangeFilter = TimeRangeFilter.between(
                             Instant.ofEpochMilli(startTime), Instant.ofEpochMilli(endTime)
                         ),

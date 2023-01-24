@@ -2,8 +2,8 @@ import 'package:health_connect/constants.dart';
 import 'package:health_connect/domain/record_model/_base/record.dart';
 
 class InstantaneousRecord extends Record {
-  final DateTime? time;
-  final String? zoneOffset;
+  final int? time;
+  final int? zoneOffset;
 
   InstantaneousRecord({required super.metadata, this.time, this.zoneOffset});
 

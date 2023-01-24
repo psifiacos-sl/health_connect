@@ -19,7 +19,7 @@ class HeartRateRecord extends IntervalRecord {
 
 class HeartRateRecordSample {
   final DataNoUnit dataNoUnit;
-  final DateTime? time;
+  final int? time;
 
   HeartRateRecordSample({required this.dataNoUnit, this.time});
 

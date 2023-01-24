@@ -19,7 +19,7 @@ class StepsCadenceRecord extends IntervalRecord {
 
 class StepsCadenceRecordSample {
   final DataNoUnit dataNoUnit;
-  final DateTime? time;
+  final int? time;
 
   StepsCadenceRecordSample({required this.dataNoUnit, this.time});
 

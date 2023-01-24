@@ -19,7 +19,7 @@ class SpeedRecord extends IntervalRecord {
 
 class SpeedRecordSample {
   final VelocityUnit velocity;
-  final DateTime? time;
+  final int? time;
 
   SpeedRecordSample({required this.velocity, this.time});
 

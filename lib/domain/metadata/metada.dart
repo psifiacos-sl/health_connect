@@ -5,7 +5,7 @@ import 'package:health_connect/domain/metadata/device.dart';
 class Metadata {
   String id;
   DataOrigin dataOrigin;
-  // DateTime lastModifiedTime;
+  int lastModifiedTime;
   int clientRecordVersion;
 
   String? clientRecordId;
@@ -14,7 +14,7 @@ class Metadata {
   Metadata(
       {required this.id,
       required this.dataOrigin,
-      // required this.lastModifiedTime,
+      required this.lastModifiedTime,
       required this.clientRecordVersion,
       this.clientRecordId,
       this.device});
@@ -23,7 +23,7 @@ class Metadata {
     return Metadata(
       id: "",
       dataOrigin: DataOrigin.empty(),
-      // lastModifiedTime: DateTime(1970),
+      lastModifiedTime: 0,
       clientRecordVersion: -1,
     );
   }
@@ -32,7 +32,7 @@ class Metadata {
     return Metadata(
         id: json?[Constants.id] ?? "",
         dataOrigin: DataOrigin.fromJson(json?[Constants.dataOrigin]),
-        // lastModifiedTime: json[Constants.lastModifiedTime],
+        lastModifiedTime: json?[Constants.lastModifiedTime] ?? 0,
         clientRecordVersion: json?[Constants.clientRecordVersion] ?? -1,
         clientRecordId: json?[Constants.clientRecordId] ?? "",
         device: Device.fromJson(json?[Constants.device]));

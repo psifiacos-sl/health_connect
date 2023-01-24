@@ -37,6 +37,116 @@ enum VolumeTypes { LITERS, MILLILITERS, FLUID_OUNCES_US }
 
 enum MenstruationFlowTypes { FLOW_UNKNOWN, FLOW_LIGHT, FLOW_MEDIUM, FLOW_HEAVY }
 
+enum OvulationTest {
+  /**
+   * Inconclusive result. Refers to ovulation test results that are indeterminate (e.g. may be
+   * testing malfunction, user error, etc.). ". Any unknown value will also be returned as
+   * [RESULT_INCONCLUSIVE].
+   */
+  RESULT_INCONCLUSIVE,
+
+  /**
+   * Positive fertility (may also be referred as "peak" fertility). Refers to the peak of the
+   * luteinizing hormone (LH) surge and ovulation is expected to occur in 10-36 hours.
+   */
+  RESULT_POSITIVE,
+
+  /**
+   * High fertility. Refers to a rise in estrogen or luteinizing hormone that may signal the
+   * fertile window (time in the menstrual cycle when conception is likely to occur).
+   */
+  RESULT_HIGH,
+
+  /**
+   * Negative fertility (may also be referred as "low" fertility). Refers to the time in the
+   * cycle where fertility/conception is expected to be low.
+   */
+  RESULT_NEGATIVE
+}
+
+enum Protections{
+  PROTECTION_USED_UNKNOWN,
+  PROTECTION_USED_PROTECTED,
+  PROTECTION_USED_UNPROTECTED
+}
+
+enum BodyTemperatureMeasurementLocation {
+  MEASUREMENT_LOCATION_UNKNOWN,
+  MEASUREMENT_LOCATION_ARMPIT,
+  MEASUREMENT_LOCATION_FINGER,
+  MEASUREMENT_LOCATION_FOREHEAD,
+  MEASUREMENT_LOCATION_MOUTH,
+  MEASUREMENT_LOCATION_RECTUM,
+  MEASUREMENT_LOCATION_TEMPORAL_ARTERY,
+  MEASUREMENT_LOCATION_TOE,
+  MEASUREMENT_LOCATION_EAR,
+  MEASUREMENT_LOCATION_WRIST,
+  MEASUREMENT_LOCATION_VAGINA
+}
+
+enum SpecimenSources {
+  SPECIMEN_SOURCE_UNKNOWN,
+  SPECIMEN_SOURCE_INTERSTITIAL_FLUID,
+  SPECIMEN_SOURCE_CAPILLARY_BLOOD,
+  SPECIMEN_SOURCE_PLASMA,
+  SPECIMEN_SOURCE_SERUM,
+  SPECIMEN_SOURCE_TEARS,
+  SPECIMEN_SOURCE_WHOLE_BLOOD
+}
+
+enum MealType {
+  MEAL_TYPE_UNKNOWN,
+  /** Use this for the first meal of the day, usually the morning meal. */
+  MEAL_TYPE_BREAKFAST,
+  /** Use this for the noon meal. */
+  MEAL_TYPE_LUNCH,
+  /** Use this for last meal of the day, usually the evening meal. */
+  MEAL_TYPE_DINNER,
+  /** Any meal outside of the usual three meals per day. */
+  MEAL_TYPE_SNACK
+}
+
+enum RelationToMeals {
+  RELATION_TO_MEAL_UNKNOWN,
+  RELATION_TO_MEAL_GENERAL,
+  RELATION_TO_MEAL_FASTING,
+  RELATION_TO_MEAL_BEFORE_MEAL,
+  RELATION_TO_MEAL_AFTER_MEAL,
+}
+
+enum BodyPositions {
+  BODY_POSITION_UNKNOWN,
+  BODY_POSITION_STANDING_UP,
+  BODY_POSITION_SITTING_DOWN,
+  BODY_POSITION_LYING_DOWN,
+  BODY_POSITION_RECLINING
+}
+
+enum MeasurementLocations {
+  MEASUREMENT_LOCATION_UNKNOWN,
+  MEASUREMENT_LOCATION_LEFT_WRIST,
+  MEASUREMENT_LOCATION_RIGHT_WRIST,
+  MEASUREMENT_LOCATION_LEFT_UPPER_ARM,
+  MEASUREMENT_LOCATION_RIGHT_UPPER_ARM
+}
+
+enum Appearances {
+  APPEARANCE_UNKNOWN,
+  APPEARANCE_DRY,
+  APPEARANCE_STICKY,
+  APPEARANCE_CREAMY,
+  APPEARANCE_WATERY,
+  APPEARANCE_EGG_WHITE,
+  APPEARANCE_UNUSUAL
+}
+
+enum Sensations {
+  SENSATION_UNKNOWN,
+  SENSATION_LIGHT,
+  SENSATION_MEDIUM,
+  SENSATION_HEAVY
+}
+
 enum SleepStageTypes {
   STAGE_TYPE_UNKNOWN,
   STAGE_TYPE_AWAKE,
@@ -47,10 +157,62 @@ enum SleepStageTypes {
   STAGE_TYPE_REM,
 }
 
+enum SwimmingTypes{
+  SWIMMING_TYPE_OTHER,
+  SWIMMING_TYPE_FREESTYLE,
+  SWIMMING_TYPE_BACKSTROKE,
+  SWIMMING_TYPE_BREASTSTROKE,
+  SWIMMING_TYPE_BUTTERFLY,
+  SWIMMING_TYPE_MIXED
+}
+
+enum MeasurementMethods{
+  MEASUREMENT_METHOD_OTHER,
+  MEASUREMENT_METHOD_METABOLIC_CART,
+  MEASUREMENT_METHOD_HEART_RATE_RATIO,
+  MEASUREMENT_METHOD_COOPER_TEST,
+  MEASUREMENT_METHOD_MULTISTAGE_FITNESS_TEST,
+  MEASUREMENT_METHOD_ROCKPORT_FITNESS_TEST
+}
+
 enum ExerciseEventType {
   EVENT_TYPE_UNKNOWN,
   EVENT_TYPE_PAUSE,
   EVENT_TYPE_REST,
+}
+
+enum RepetitionTypes {
+  REPETITION_TYPE_UNKNOWN,
+  REPETITION_TYPE_ARM_CURL,
+  REPETITION_TYPE_BACK_EXTENSION,
+  REPETITION_TYPE_BALL_SLAM,
+  REPETITION_TYPE_BENCH_PRESS,
+  REPETITION_TYPE_BURPEE,
+  REPETITION_TYPE_CRUNCH,
+  REPETITION_TYPE_DEADLIFT,
+  REPETITION_TYPE_DOUBLE_ARM_TRICEPS_EXTENSION,
+  REPETITION_TYPE_DUMBBELL_ROW,
+  REPETITION_TYPE_FRONT_RAISE,
+  REPETITION_TYPE_HIP_THRUST,
+  REPETITION_TYPE_HULA_HOOP,
+  REPETITION_TYPE_JUMPING_JACK,
+  REPETITION_TYPE_JUMP_ROPE,
+  REPETITION_TYPE_KETTLEBELL_SWING,
+  REPETITION_TYPE_LATERAL_RAISE,
+  REPETITION_TYPE_LAT_PULL_DOWN,
+  REPETITION_TYPE_LEG_CURL,
+  REPETITION_TYPE_LEG_EXTENSION,
+  REPETITION_TYPE_LEG_PRESS,
+  REPETITION_TYPE_LEG_RAISE,
+  REPETITION_TYPE_LUNGE,
+  REPETITION_TYPE_MOUNTAIN_CLIMBER,
+  REPETITION_TYPE_PLANK,
+  REPETITION_TYPE_PULL_UP,
+  REPETITION_TYPE_PUNCH,
+  REPETITION_TYPE_SHOULDER_PRESS,
+  REPETITION_TYPE_SINGLE_ARM_TRICEPS_EXTENSION,
+  REPETITION_TYPE_SIT_UP,
+  REPETITION_TYPE_SQUAT
 }
 
 enum ExerciseType {
@@ -163,25 +325,34 @@ enum RecordClass {
   HydrationRead,
   LeanBodyMassRead,
   MenstruationRead,
-  NutritionRead,///not implemented yet
-  OvulationTestRead,///not implemented yet
+  NutritionRead,
+
+  ///not implemented yet
+  OvulationTestRead,
+
+  ///not implemented yet
   OxygenSaturationRead,
-  PowerSeriesRead,///not implemented yet
+  PowerSeriesRead,
+
+  ///not implemented yet
   RepetitionsRead,
   RespiratoryRateRead,
   RestingHeartRateRead,
-  SexualActivityRead,///not implemented yet
+  SexualActivityRead,
+
+  ///not implemented yet
   SleepSessionRead,
   SleepStageRead,
   SpeedSeriesRead,
   StepsRead,
   StepsCadenceSeriesRead,
-  SwimmingStrokesRead,///not implemented yet
+  SwimmingStrokesRead,
+
+  ///not implemented yet
   TotalCaloriesBurnedRead,
   Vo2MaxRead,
   WheelchairPushesRead,
   WeightRead,
-
   ActiveCaloriesBurnedWrite,
   ActivityEventWrite,
   ActivityLapWrite,

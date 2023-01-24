@@ -2,8 +2,11 @@ package com.metriri.health_connect
 
 import Utils
 import androidx.annotation.NonNull
+import androidx.health.connect.client.records.HeartRateRecord
 import androidx.lifecycle.DefaultLifecycleObserver
 import com.google.gson.Gson
+import com.metriri.health_connect.models.base.ReadRecordResponseModel
+import com.metriri.health_connect.models.base.RecordData
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -30,7 +33,7 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
         val gson = Gson()
     }
 
-    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) =
         when (call.method) {
             Constants.getPlatformVersion -> {
                 result.success("${Constants.android} ${android.os.Build.VERSION.RELEASE}")
@@ -92,15 +95,26 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
                     val endTime = call.argument(Constants.endTime) as Long?
                     if (recordClassArgKey is String && startTime is Long && endTime is Long) {
                         when (val hcStatus = HCManager.getOrCreate(activity = act)) {
-                            Constants.hCClientStatus.OK -> HCManager.readData(
-                                recordClass = recordClassArgKey,
+                            Constants.hCClientStatus.OK -> HCManager.readData(recordClass = recordClassArgKey,
                                 startTime = startTime,
                                 endTime = endTime,
                                 response = { response ->
-                                    val hCResultJson = gson.toJson(response)
+                                    val list = mutableListOf<RecordData>()
+                                    response?.records?.forEach {
+                                        val v = Utils.fromRecordKClassToModel(
+                                            it
+                                        )
+                                        if (v != null) {
+                                            list.add(v)
+                                        }
+                                    }
+                                    val obj = ReadRecordResponseModel(
+                                        records = list.toList(),
+                                        pageToken = response?.pageToken
+                                    )
+                                    val hCResultJson = gson.toJson(obj)
                                     result.success(hCResultJson)
-                                }
-                            )
+                                })
                             else -> resolveHCClientStatusNotOK(result, hcStatus)
                         }
                     } else {
@@ -135,7 +149,6 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
                 result.notImplemented()
             }
         }
-    }
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(
@@ -202,28 +215,18 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     }
 
     private fun resolveHCClientStatusNotOK(
-        result: Result,
-        hCClientStatus: Constants.hCClientStatus
+        result: Result, hCClientStatus: Constants.hCClientStatus
     ) {
         when (hCClientStatus) {
-            Constants.hCClientStatus.ApiNotSupported ->
-                result.error(
-                    Constants.hCClientStatus.ApiNotSupported.name,
-                    "SDK version too low",
-                    -1
-                )
-            Constants.hCClientStatus.ProviderNotAvailable ->
-                result.error(
-                    Constants.hCClientStatus.ProviderNotAvailable.name,
-                    "Service not available",
-                    -1
-                )
-            else ->
-                result.error(
-                    Constants.hCClientStatus.UnKnown.name,
-                    "Status: UnKnown",
-                    -1
-                )
+            Constants.hCClientStatus.ApiNotSupported -> result.error(
+                Constants.hCClientStatus.ApiNotSupported.name, "SDK version too low", -1
+            )
+            Constants.hCClientStatus.ProviderNotAvailable -> result.error(
+                Constants.hCClientStatus.ProviderNotAvailable.name, "Service not available", -1
+            )
+            else -> result.error(
+                Constants.hCClientStatus.UnKnown.name, "Status: UnKnown", -1
+            )
         }
 
     }

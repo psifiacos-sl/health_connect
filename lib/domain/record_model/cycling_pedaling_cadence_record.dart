@@ -24,7 +24,7 @@ class CyclingPedalingCadenceRecord extends IntervalRecord {
 
 class CyclingPedalingCadenceRecordSample {
   final DataNoUnit dataNoUnit;
-  final DateTime? time;
+  final int? time;
 
   CyclingPedalingCadenceRecordSample({required this.dataNoUnit, this.time});
 
