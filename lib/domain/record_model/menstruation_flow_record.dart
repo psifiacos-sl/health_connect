@@ -13,7 +13,8 @@ class MenstruationFlowRecord extends InstantaneousRecord {
     return MenstruationFlowRecord(
         metadata: parent.metadata,
         dataNoUnit: DataNoUnit(MenstruationFlowTypes.values
-            .firstWhere((element) => element.name == json[Constants.eventType])
+            .firstWhere((element) => element.name == json[Constants.eventType],
+            orElse: () => MenstruationFlowTypes.FLOW_UNKNOWN)
             .index));
   }
 }

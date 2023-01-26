@@ -9,12 +9,16 @@ class BloodPressureRecord extends InstantaneousRecord {
   BloodPressureRecord(
       {required this.systolic,
       required this.diastolic,
-      required super.metadata});
+      required super.metadata,
+        super.time,
+        super.zoneOffset});
 
   factory BloodPressureRecord.fromJson(Map<String, dynamic> json) {
     final parent = InstantaneousRecord.fromJson(json);
     return BloodPressureRecord(
       metadata: parent.metadata,
+      time: parent.time,
+      zoneOffset: parent.zoneOffset,
       diastolic: PressureUnit.fromJson(json[Constants.diastolic]),
       systolic: PressureUnit.fromJson(json[Constants.systolic]),
     );

@@ -5,12 +5,22 @@ import 'package:health_connect/domain/units/velocity_unit.dart';
 class SpeedRecord extends IntervalRecord {
   final List<SpeedRecordSample> samples;
 
-  SpeedRecord({required this.samples, required super.metadata});
+  SpeedRecord(
+      {required this.samples,
+      required super.metadata,
+      super.startTime,
+      super.endTime,
+      super.startZoneOffset,
+      super.endZoneOffset});
 
   factory SpeedRecord.fromJson(Map<String, dynamic> json) {
     final parent = IntervalRecord.fromJson(json);
     return SpeedRecord(
         metadata: parent.metadata,
+        startTime: parent.startTime,
+        endTime: parent.endTime,
+        endZoneOffset: parent.endZoneOffset,
+        startZoneOffset: parent.startZoneOffset,
         samples: (json[Constants.samples] as Iterable)
             .map((e) => SpeedRecordSample.fromJson(e))
             .toList());

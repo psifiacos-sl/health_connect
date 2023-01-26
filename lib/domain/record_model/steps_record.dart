@@ -6,17 +6,20 @@ class StepsRecord extends IntervalRecord {
   final DataNoUnit dataNoUnit;
 
   StepsRecord(
-      {required super.metadata,
-      // required super.startTime,
-      // required super.endTime,
+      {required super.metadata, super.startTime,
+        super.endTime,
+        super.startZoneOffset,
+        super.endZoneOffset,
       required this.dataNoUnit});
 
   factory StepsRecord.fromJson(Map<String, dynamic> json) {
     final parent = IntervalRecord.fromJson(json);
     return StepsRecord(
         metadata: parent.metadata,
-        // startTime: parent.startTime,
-        // endTime: parent.endTime,
+        startTime: parent.startTime,
+        endTime: parent.endTime,
+        endZoneOffset: parent.endZoneOffset,
+        startZoneOffset: parent.startZoneOffset,
         dataNoUnit: DataNoUnit(json[Constants.count]));
   }
 }

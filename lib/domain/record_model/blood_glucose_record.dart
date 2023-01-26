@@ -6,12 +6,15 @@ import 'package:health_connect/enums.dart';
 class BloodGlucoseRecord extends InstantaneousRecord {
   final BloodGlucoseUnit level;
 
-  BloodGlucoseRecord({required this.level, required super.metadata});
+  BloodGlucoseRecord({required this.level, required super.metadata, super.time,
+    super.zoneOffset});
 
   factory BloodGlucoseRecord.fromJson(Map<String, dynamic> json) {
     final parent = InstantaneousRecord.fromJson(json);
     return BloodGlucoseRecord(
         metadata: parent.metadata,
+        time: parent.time,
+        zoneOffset: parent.zoneOffset,
         level: BloodGlucoseUnit.fromJson(json[Constants.level]));
   }
 }

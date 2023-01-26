@@ -7,12 +7,16 @@ class HeartRateVariabilityRmssdRecord extends InstantaneousRecord {
   final DataNoUnit dataNoUnit;
 
   HeartRateVariabilityRmssdRecord(
-      {required this.dataNoUnit, required super.metadata});
+      {required this.dataNoUnit, required super.metadata,
+        super.time,
+        super.zoneOffset});
 
   factory HeartRateVariabilityRmssdRecord.fromJson(Map<String, dynamic> json) {
     final parent = InstantaneousRecord.fromJson(json);
     return HeartRateVariabilityRmssdRecord(
         metadata: parent.metadata,
+        time: parent.time,
+        zoneOffset: parent.zoneOffset,
         dataNoUnit: DataNoUnit(json[Constants.heartRateVariabilityMillis]));
   }
 }

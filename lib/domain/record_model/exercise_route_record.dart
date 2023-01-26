@@ -6,12 +6,19 @@ import 'package:health_connect/domain/units/length_unit.dart';
 class ExerciseRouteRecord extends IntervalRecord {
   final List<ExerciseRouteRecordSample> samples;
 
-  ExerciseRouteRecord({required this.samples, required super.metadata});
+  ExerciseRouteRecord({required this.samples, required super.metadata, super.startTime,
+    super.endTime,
+    super.startZoneOffset,
+    super.endZoneOffset});
 
   factory ExerciseRouteRecord.fromJson(Map<String, dynamic> json) {
     final parent = IntervalRecord.fromJson(json);
     return ExerciseRouteRecord(
       metadata: parent.metadata,
+      startTime: parent.startTime,
+      endTime: parent.endTime,
+      endZoneOffset: parent.endZoneOffset,
+      startZoneOffset: parent.startZoneOffset,
       samples: (json[Constants.samples] as Iterable)
           .map((e) => ExerciseRouteRecordSample.fromJson(e))
           .toList(),

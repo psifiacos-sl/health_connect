@@ -6,12 +6,19 @@ import 'package:health_connect/enums.dart';
 class DistanceRecord extends IntervalRecord {
   final LengthUnit distance;
 
-  DistanceRecord({required this.distance, required super.metadata});
+  DistanceRecord({required this.distance, required super.metadata, super.startTime,
+    super.endTime,
+    super.startZoneOffset,
+    super.endZoneOffset});
 
   factory DistanceRecord.fromJson(Map<String, dynamic> json) {
     final parent = IntervalRecord.fromJson(json);
     return DistanceRecord(
         distance: LengthUnit.fromJson(json[Constants.distance]),
+        startTime: parent.startTime,
+        endTime: parent.endTime,
+        endZoneOffset: parent.endZoneOffset,
+        startZoneOffset: parent.startZoneOffset,
         metadata: parent.metadata);
   }
 }

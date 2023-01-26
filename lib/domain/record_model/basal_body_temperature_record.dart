@@ -6,12 +6,17 @@ class BasalBodyTemperatureRecord extends InstantaneousRecord {
   final TemperatureUnit temperature;
 
   BasalBodyTemperatureRecord(
-      {required this.temperature, required super.metadata});
+      {required this.temperature,
+      required super.metadata,
+      super.time,
+      super.zoneOffset});
 
   factory BasalBodyTemperatureRecord.fromJson(Map<String, dynamic> json) {
     final parent = InstantaneousRecord.fromJson(json);
     return BasalBodyTemperatureRecord(
         metadata: parent.metadata,
+        time: parent.time,
+        zoneOffset: parent.zoneOffset,
         temperature: TemperatureUnit.fromJson(json[Constants.temperature]));
   }
 }

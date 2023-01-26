@@ -6,12 +6,19 @@ class ExerciseRepetitionsRecord extends IntervalRecord {
   final DataNoUnit dataNoUnit;
 
   ExerciseRepetitionsRecord(
-      {required this.dataNoUnit, required super.metadata});
+      {required this.dataNoUnit, required super.metadata, super.startTime,
+        super.endTime,
+        super.startZoneOffset,
+        super.endZoneOffset});
 
   factory ExerciseRepetitionsRecord.fromJson(Map<String, dynamic> json) {
     final parent = IntervalRecord.fromJson(json);
     return ExerciseRepetitionsRecord(
       metadata: parent.metadata,
+      startTime: parent.startTime,
+      endTime: parent.endTime,
+      endZoneOffset: parent.endZoneOffset,
+      startZoneOffset: parent.startZoneOffset,
       dataNoUnit: DataNoUnit(json[Constants.count]),
     );
   }

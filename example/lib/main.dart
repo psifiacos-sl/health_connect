@@ -111,14 +111,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void readMultiple() async {
-    final futures = [
-      // RecordClass.CyclingPedalingCadenceSeriesRead,
-      // RecordClass.ActivitySessionRead,
-      // RecordClass.SpeedSeriesRead,
-      // RecordClass.HeartRateSeriesRead,
-      // RecordClass.DistanceRead,
-      RecordClass.Vo2MaxRead,
-    ]
+    final futures = RecordClass.values
         .where((element) => element.name.endsWith("Read"))
         .map((e) => readData(e))
         .toList();

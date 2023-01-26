@@ -5,12 +5,19 @@ import 'package:health_connect/domain/units/data_no_unit.dart';
 class RespiratoryRateRecord extends IntervalRecord {
   final DataNoUnit dataNoUnit;
 
-  RespiratoryRateRecord({required this.dataNoUnit, required super.metadata});
+  RespiratoryRateRecord({required this.dataNoUnit, required super.metadata, super.startTime,
+    super.endTime,
+    super.startZoneOffset,
+    super.endZoneOffset});
 
   factory RespiratoryRateRecord.fromJson(Map<String, dynamic> json) {
     final parent = IntervalRecord.fromJson(json);
     return RespiratoryRateRecord(
         metadata: parent.metadata,
+        startTime: parent.startTime,
+        endTime: parent.endTime,
+        endZoneOffset: parent.endZoneOffset,
+        startZoneOffset: parent.startZoneOffset,
         dataNoUnit: DataNoUnit(json[Constants.rate], customUnit: Constants.breathsPerMinute));
   }
 }

@@ -5,12 +5,19 @@ import 'package:health_connect/domain/units/data_no_unit.dart';
 class HeartRateRecord extends IntervalRecord {
   final List<HeartRateRecordSample> samples;
 
-  HeartRateRecord({required this.samples, required super.metadata});
+  HeartRateRecord({required this.samples, required super.metadata, super.startTime,
+    super.endTime,
+    super.startZoneOffset,
+    super.endZoneOffset});
 
   factory HeartRateRecord.fromJson(Map<String, dynamic> json) {
     final parent = IntervalRecord.fromJson(json);
     return HeartRateRecord(
         metadata: parent.metadata,
+        startTime: parent.startTime,
+        endTime: parent.endTime,
+        endZoneOffset: parent.endZoneOffset,
+        startZoneOffset: parent.startZoneOffset,
         samples: (json[Constants.samples] as Iterable)
             .map((e) => HeartRateRecordSample.fromJson(e))
             .toList());
