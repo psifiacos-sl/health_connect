@@ -48,11 +48,8 @@ object HCManager {
         recordsClasses: List<String>,
         response: (records: Set<Constants.RecordClass>) -> Unit,
     ) {
-        val permissions: Set<HealthPermission> =
-            Utils.fromRecordClassesToPermissions(recordsClasses)
-        hCCycleObserver?.launchRequestPermissions(permissions) {
-            val result = permissions.intersect(it.toSet())
-            val resultRecordClasses = Utils.fromPermissionsToRecordClasses(result)
+        hCCycleObserver?.launchRequestPermissions(recordsClasses.toSet()) {
+            val resultRecordClasses = Utils.fromPermissionsToRecordClasses(it)
             response(resultRecordClasses)
         }
     }
@@ -62,12 +59,9 @@ object HCManager {
         response: (records: Set<Constants.RecordClass>) -> Unit,
     ) {
         scope.launch {
-            val permissions: Set<HealthPermission> =
-                Utils.fromRecordClassesToPermissions(recordsClasses)
             val granted =
-                hCClient?.permissionController?.getGrantedPermissions(permissions)
-            val result = permissions.intersect((granted ?: setOf()).toSet())
-            val resultRecordClasses = Utils.fromPermissionsToRecordClasses(result)
+                hCClient?.permissionController?.getGrantedPermissions() ?: setOf()
+            val resultRecordClasses = Utils.fromPermissionsToRecordClasses(granted)
             response(resultRecordClasses)
         }
     }

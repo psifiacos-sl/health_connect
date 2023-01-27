@@ -9,10 +9,10 @@ import androidx.lifecycle.LifecycleOwner
 
 class HCCycleObserver(private val registry: ActivityResultRegistry) :
     DefaultLifecycleObserver {
-    private lateinit var requestPermissions: ActivityResultLauncher<Set<HealthPermission>>
+    private lateinit var requestPermissions: ActivityResultLauncher<Set<String>>
     private val requestPermissionActivityContract =
         PermissionController.createRequestPermissionResultContract()
-    lateinit var responseInternal: (permissionsGranted: Set<HealthPermission>) -> Unit
+    lateinit var responseInternal: (permissionsGranted: Set<String>) -> Unit
 
     override fun onCreate(owner: LifecycleOwner) {
         requestPermissions =
@@ -25,8 +25,8 @@ class HCCycleObserver(private val registry: ActivityResultRegistry) :
     }
 
     fun launchRequestPermissions(
-        permissions: Set<HealthPermission>,
-        response: (permissionsGranted: Set<HealthPermission>) -> Unit
+        permissions: Set<String>,
+        response: (permissionsGranted: Set<String>) -> Unit
     ) {
         responseInternal = response
         requestPermissions.launch(permissions)

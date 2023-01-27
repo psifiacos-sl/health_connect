@@ -21,30 +21,29 @@ class Utils {
             return Constants.RecordClass.valueOf(value)
         }
 
-        @SuppressLint("RestrictedApi")
-        fun fromPermissionsToRecordClasses(permissions: Set<HealthPermission>): Set<Constants.RecordClass> {
+        fun fromPermissionsToRecordClasses(permissions: Set<String>): Set<Constants.RecordClass> {
             val recordClasses: MutableSet<Constants.RecordClass> = mutableSetOf()
             permissions.forEach {
-                val protoPermission = it.toProtoPermission()
-                val name = "${protoPermission.dataType.name}${
-                    when (protoPermission.accessType.number) {
-                        1 -> Constants.readSuffix
-                        else -> Constants.writeSuffix
-                    }
-                }"
-                val recordClass = Constants.RecordClass.valueOf(name)
+//                val protoPermission = it.toProtoPermission()
+//                val name = "${protoPermission.dataType.name}${
+//                    when (protoPermission.accessType.number) {
+//                        1 -> Constants.readSuffix
+//                        else -> Constants.writeSuffix
+//                    }
+//                }"
+                val recordClass = Constants.RecordClass.valueOf(it)
                 recordClasses.add(recordClass)
             }
             return recordClasses
         }
 
-        fun fromRecordClassesToPermissions(recordsClasses: List<String>): Set<HealthPermission> {
-            val permissions: MutableSet<HealthPermission> = mutableSetOf()
+        fun fromRecordClassesToPermissions(recordsClasses: List<String>): Set<String> {
+            val permissions: MutableSet<String> = mutableSetOf()
             recordsClasses.forEach { str ->
                 Constants.RecordClass.valueOf(str).kC.also { kClass ->
                     when (str.endsWith(Constants.readSuffix)) {
-                        true -> permissions.add(HealthPermission.createReadPermission(kClass))
-                        else -> permissions.add(HealthPermission.createWritePermission(kClass))
+                        true -> permissions.add(HealthPermission.getReadPermission(kClass))
+                        else -> permissions.add(HealthPermission.getWritePermission(kClass))
                     }
                 }
             }
@@ -65,9 +64,6 @@ class Utils {
                 is CyclingPedalingCadenceRecord -> CyclingPedalingCadenceSeriesModel(record)
                 is DistanceRecord -> DistanceModel(record)
                 is ElevationGainedRecord -> ElevationGainedModel(record)
-                is ExerciseEventRecord -> ExerciseEventModel(record)
-                is ExerciseLapRecord -> ExerciseLapModel(record)
-                is ExerciseRepetitionsRecord -> ExerciseRepetitionsModel(record)
                 is ExerciseSessionRecord -> ExerciseSessionModel(record)
                 is FloorsClimbedRecord -> FloorsClimbedModel(record)
                 is HeartRateRecord -> HeartRateSeriesModel(record)
@@ -89,7 +85,6 @@ class Utils {
                 is SpeedRecord -> SpeedSeriesModel(record)
                 is StepsCadenceRecord -> StepsCadenceModel(record)
                 is StepsRecord -> StepsModel(record)
-                is SwimmingStrokesRecord -> SwimmingStrokesModel(record)
                 is TotalCaloriesBurnedRecord -> TotalCaloriesBurnedModel(record)
                 is Vo2MaxRecord -> Vo2MaxModel(record)
                 is WeightRecord -> WeightModel(record)
