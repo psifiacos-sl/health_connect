@@ -37,6 +37,8 @@ class MethodChannelHealthConnect extends HealthConnectPlatform {
     final result = await methodChannel.invokeMethod(
         Constants.checkPermissions, {
       Constants.recordClassListArgKey: permissions.map((e) => e.name).toList()
+    }).onError((error, stackTrace) {
+      throw Exception(error);
     });
     List<RecordClass> grantedList = [];
     final decodeResult = jsonDecode(result) as Iterable;
@@ -56,6 +58,8 @@ class MethodChannelHealthConnect extends HealthConnectPlatform {
     final result = await methodChannel.invokeMethod(
         Constants.requestPermissions, {
       Constants.recordClassListArgKey: permissions.map((e) => e.name).toList()
+    }).onError((error, stackTrace) {
+      throw Exception(error);
     });
     List<RecordClass> grantedList = [];
     final decodeResult = jsonDecode(result) as Iterable;
@@ -96,7 +100,9 @@ class MethodChannelHealthConnect extends HealthConnectPlatform {
   Future<HealthConnectStatus> isProviderAvailable() async {
     final String? result = await methodChannel
         .invokeMethod<String>(Constants.isProviderAvailable)
-        .onError((error, stackTrace) {});
+        .onError((error, stackTrace) {
+          throw Exception(error);
+    });
     return HealthConnectStatus.values.firstWhere((element) =>
         element.name == (result?.toString() ?? HealthConnectStatus.UnKnown));
   }
