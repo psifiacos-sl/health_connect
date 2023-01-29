@@ -1,5 +1,3 @@
-import android.annotation.SuppressLint
-import androidx.health.connect.client.impl.converters.permission.toProtoPermission
 import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.*
 import com.metriri.health_connect.Constants
@@ -9,30 +7,13 @@ import com.metriri.health_connect.models.base.RecordData
 class Utils {
     companion object {
 
-        fun fromListStringToRecordClass(list: List<String>): Set<Constants.RecordClass> {
-            val result: MutableSet<Constants.RecordClass> = mutableSetOf()
-            list.forEach {
-                result.add(fromStringToRecordClass(it))
-            }
-            return result
-        }
-
-        fun fromStringToRecordClass(value: String): Constants.RecordClass {
-            return Constants.RecordClass.valueOf(value)
-        }
-
         fun fromPermissionsToRecordClasses(permissions: Set<String>): Set<Constants.RecordClass> {
             val recordClasses: MutableSet<Constants.RecordClass> = mutableSetOf()
             permissions.forEach {
-//                val protoPermission = it.toProtoPermission()
-//                val name = "${protoPermission.dataType.name}${
-//                    when (protoPermission.accessType.number) {
-//                        1 -> Constants.readSuffix
-//                        else -> Constants.writeSuffix
-//                    }
-//                }"
-                val recordClass = Constants.RecordClass.valueOf(it)
-                recordClasses.add(recordClass)
+                Constants.RecordClass.values()
+                    .first { r -> Constants.permissionPrefix + r.permission == it }.let { rc ->
+                        recordClasses.add(rc)
+                    }
             }
             return recordClasses
         }
@@ -59,7 +40,7 @@ class Utils {
                 is BloodPressureRecord -> BloodPressureModel(record)
                 is BodyFatRecord -> BodyFatModel(record)
                 is BodyTemperatureRecord -> BodyTemperatureModel(record)
-                is BodyWaterMassRecord -> BodyWaterMassModel(record)
+                is BoneMassRecord -> BoneMassModel(record)
                 is CervicalMucusRecord -> CervicalMucusModel(record)
                 is CyclingPedalingCadenceRecord -> CyclingPedalingCadenceSeriesModel(record)
                 is DistanceRecord -> DistanceModel(record)
@@ -69,7 +50,6 @@ class Utils {
                 is HeartRateRecord -> HeartRateSeriesModel(record)
                 is HeightRecord -> HeightModel(record)
                 is HydrationRecord -> HydrationModel(record)
-                is IntermenstrualBleedingRecord -> InterMenstrualBleedingModel(record)
                 is LeanBodyMassRecord -> LeanBodyMassModel(record)
                 is MenstruationFlowRecord -> MenstruationFlowModel(record)
                 is MenstruationPeriodRecord -> MenstruationPeriodModel(record)

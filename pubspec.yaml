@@ -1,11 +1,11 @@
 name: health_connect
 description: A new Flutter project.
 version: 0.0.1
-homepage:
+homepage: "Home"
 
 environment:
-  sdk: '>=2.18.5 <3.0.0'
-  flutter: ">=2.5.0"
+  sdk: '>=2.19.0 <3.0.0'
+  flutter: ">=3.7.0"
 
 dependencies:
   flutter:

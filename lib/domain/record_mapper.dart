@@ -10,19 +10,14 @@ import 'package:health_connect/domain/record_model/blood_glucose_record.dart';
 import 'package:health_connect/domain/record_model/blood_pressure_record.dart';
 import 'package:health_connect/domain/record_model/body_fat_record.dart';
 import 'package:health_connect/domain/record_model/body_temperature_record.dart';
-import 'package:health_connect/domain/record_model/body_water_mass_record.dart';
 import 'package:health_connect/domain/record_model/bone_mass_record.dart';
 import 'package:health_connect/domain/record_model/cervical_mucus_record.dart';
 import 'package:health_connect/domain/record_model/cycling_pedaling_cadence_record.dart';
 import 'package:health_connect/domain/record_model/distance_record.dart';
 import 'package:health_connect/domain/record_model/elevation_gained_record.dart';
-import 'package:health_connect/domain/record_model/exercise_event_record.dart';
-import 'package:health_connect/domain/record_model/exercise_lap_record.dart';
-import 'package:health_connect/domain/record_model/exercise_repetitions_record.dart';
 import 'package:health_connect/domain/record_model/exercise_session_record.dart';
 import 'package:health_connect/domain/record_model/floors_climbed_record.dart';
 import 'package:health_connect/domain/record_model/heart_rate_record.dart';
-import 'package:health_connect/domain/record_model/heart_rate_variability_rmssd_record.dart';
 import 'package:health_connect/domain/record_model/height_record.dart';
 import 'package:health_connect/domain/record_model/hydration_record.dart';
 import 'package:health_connect/domain/record_model/lean_body_mass_record.dart';
@@ -48,12 +43,6 @@ class RecordMapper {
     switch (recordClass) {
       case RecordClass.ActiveCaloriesBurnedRead:
         return ActiveCaloriesBurnedRecord.fromJson(json);
-      case RecordClass.ActivityEventRead:
-        return ExerciseEventRecord.fromJson(json);
-      case RecordClass.ActivityLapRead:
-        return ExerciseLapRecord.fromJson(json);
-      case RecordClass.ActivitySessionRead:
-        return ExerciseSessionRecord.fromJson(json);
       case RecordClass.BasalBodyTemperatureRead:
         return BasalBodyTemperatureRecord.fromJson(json);
       case RecordClass.BasalMetabolicRateRead:
@@ -66,8 +55,6 @@ class RecordMapper {
         return BodyFatRecord.fromJson(json);
       case RecordClass.BodyTemperatureRead:
         return BodyTemperatureRecord.fromJson(json);
-      // case RecordClass.BodyWaterMassRead:
-      //   return BodyWaterMassRecord.fromJson(json);
       case RecordClass.BoneMassRead:
         return BoneMassRecord.fromJson(json);
       case RecordClass.CervicalMucusRead:
@@ -78,69 +65,63 @@ class RecordMapper {
         return DistanceRecord.fromJson(json);
       case RecordClass.ElevationGainedRead:
         return ElevationGainedRecord.fromJson(json);
+      case RecordClass.ExerciseSessionRead:
+        return ExerciseSessionRecord.fromJson(json);
       case RecordClass.FloorsClimbedRead:
         return FloorsClimbedRecord.fromJson(json);
       case RecordClass.HeartRateSeriesRead:
         return HeartRateRecord.fromJson(json);
-      // case RecordClass.HeartRateVariabilityRmssdRead:
-      //   return HeartRateVariabilityRmssdRecord.fromJson(json);
       case RecordClass.HeightRead:
         return HeightRecord.fromJson(json);
       case RecordClass.HydrationRead:
         return HydrationRecord.fromJson(json);
       case RecordClass.LeanBodyMassRead:
         return LeanBodyMassRecord.fromJson(json);
-      case RecordClass.MenstruationRead:
+      case RecordClass.MenstruationFlowRead:
         return MenstruationFlowRecord.fromJson(json);
+      case RecordClass.MenstruationPeriodRead:
+        throw notImplementedYetException();
       case RecordClass.NutritionRead:
-        throw PlatformException(
-            code: Constants.notImplementedYet,
-            message: Constants.notImplementedYet);
+        throw notImplementedYetException();
       case RecordClass.OvulationTestRead:
-        throw PlatformException(
-            code: Constants.notImplementedYet,
-            message: Constants.notImplementedYet);
+        throw notImplementedYetException();
       case RecordClass.OxygenSaturationRead:
         return OxygenSaturationRecord.fromJson(json);
       case RecordClass.PowerSeriesRead:
-        throw PlatformException(
-            code: Constants.notImplementedYet,
-            message: Constants.notImplementedYet);
-      case RecordClass.RepetitionsRead:
-        return ExerciseRepetitionsRecord.fromJson(json);
+        throw notImplementedYetException();
       case RecordClass.RespiratoryRateRead:
         return RespiratoryRateRecord.fromJson(json);
       case RecordClass.RestingHeartRateRead:
         return RestingHeartRateRecord.fromJson(json);
       case RecordClass.SexualActivityRead:
-        throw PlatformException(
-            code: Constants.notImplementedYet,
-            message: Constants.notImplementedYet);
+        throw notImplementedYetException();
       case RecordClass.SleepSessionRead:
         return SleepSessionRecord.fromJson(json);
       case RecordClass.SleepStageRead:
         return SleepStageRecord.fromJson(json);
       case RecordClass.SpeedSeriesRead:
         return SpeedRecord.fromJson(json);
-      case RecordClass.StepsRead:
-        return StepsRecord.fromJson(json);
       case RecordClass.StepsCadenceSeriesRead:
         return StepsCadenceRecord.fromJson(json);
-      case RecordClass.SwimmingStrokesRead:
-        throw PlatformException(
-            code: Constants.notImplementedYet,
-            message: Constants.notImplementedYet);
+      case RecordClass.StepsRead:
+        return StepsRecord.fromJson(json);
       case RecordClass.TotalCaloriesBurnedRead:
         return TotalCaloriesBurnedRecord.fromJson(json);
       case RecordClass.Vo2MaxRead:
         return Vo2MaxRecord.fromJson(json);
-      case RecordClass.WheelchairPushesRead:
-        return WheelchairPushesRecord.fromJson(json);
       case RecordClass.WeightRead:
         return WeightRecord.fromJson(json);
+      case RecordClass.WheelchairPushesRead:
+        return WheelchairPushesRecord.fromJson(json);
 
       default:
         return UnknownRecord();
     }
+  }
+
+  static PlatformException notImplementedYetException() {
+    throw PlatformException(
+        code: Constants.notImplementedYet,
+        message: Constants.notImplementedYet);
   }
 }
