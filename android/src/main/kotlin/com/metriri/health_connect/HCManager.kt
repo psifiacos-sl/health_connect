@@ -48,7 +48,8 @@ object HCManager {
         recordsClasses: List<String>,
         response: (records: Set<Constants.RecordClass>) -> Unit,
     ) {
-        hCCycleObserver?.launchRequestPermissions(recordsClasses.toSet()) {
+        val permissions = Utils.fromRecordClassesToPermissions(recordsClasses)
+        hCCycleObserver?.launchRequestPermissions(permissions) {
             val resultRecordClasses = Utils.fromPermissionsToRecordClasses(it)
             response(resultRecordClasses)
         }

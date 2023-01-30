@@ -98,14 +98,18 @@ class _MyAppState extends State<MyApp> {
   }
 
   void checkPermissions() async {
-    final permissions =
-        await _healthConnectPlugin.checkPermissions(RecordClass.values);
+    final list = RecordClass.values
+        .where((element) => element.name.endsWith("Read"))
+        .toList();
+    final permissions = await _healthConnectPlugin.checkPermissions(list);
     print(permissions.toString());
   }
 
   void requestPermissions() async {
-    final permissions =
-        await _healthConnectPlugin.requestPermissions(RecordClass.values);
+    final list = RecordClass.values
+        .where((element) => element.name.endsWith("Read"))
+        .toList();
+    final permissions = await _healthConnectPlugin.requestPermissions(list);
     if (permissions.isEmpty) {}
     print(permissions.toString());
   }
@@ -124,7 +128,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<ReadRecordResponse> readData(RecordClass rc) async {
-    final st = DateTime.now().subtract(Duration(days: 10));
+    final st = DateTime.now().subtract(Duration(days: 100));
     final et = DateTime.now().add(Duration(days: 365));
     final data = await _healthConnectPlugin.readData(rc,
         startTime: st.millisecondsSinceEpoch,
