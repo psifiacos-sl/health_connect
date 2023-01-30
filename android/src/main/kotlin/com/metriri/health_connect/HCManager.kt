@@ -1,6 +1,7 @@
 package com.metriri.health_connect
 
 import Utils
+import android.content.Context
 import android.util.Log
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.permission.HealthPermission
@@ -27,11 +28,11 @@ object HCManager {
     private val job = SupervisorJob()
     private val scope by lazy { CoroutineScope(Dispatchers.IO + job) }
 
-    fun getOrCreate(activity: FlutterFragmentActivity): Constants.hCClientStatus {
+    fun getOrCreate(ctx: Context): Constants.hCClientStatus {
         var status: Constants.hCClientStatus =
             Constants.hCClientStatus.UnKnown
         try {
-            hCClient = HealthConnectClient.getOrCreate(activity)
+            hCClient = HealthConnectClient.getOrCreate(ctx)
             status = Constants.hCClientStatus.OK
 
         } catch (e: Exception) {

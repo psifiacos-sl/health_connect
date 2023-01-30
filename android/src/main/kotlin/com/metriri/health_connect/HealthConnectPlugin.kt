@@ -1,6 +1,7 @@
 package com.metriri.health_connect
 
 import Utils
+import android.content.Context
 import androidx.annotation.NonNull
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -18,14 +19,14 @@ import io.flutter.plugin.common.MethodChannel.Result
 
 
 /** HealthConnectPlugin */
-class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
-    DefaultLifecycleObserver {
+class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware{
     /// The MethodChannel that will the communication between Flutter and native Android
     ///
     /// This local reference serves to register the plugin with the Flutter Engine and unregister it
     /// when the Flutter Engine is detached from the Activity
 
     private var activity: FlutterFragmentActivity? = null
+    private var context: Context? = null
     private var activityBinding: ActivityPluginBinding? = null
 
     companion object {
@@ -39,10 +40,10 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
                 result.success("${Constants.android} ${android.os.Build.VERSION.RELEASE}")
             }
             Constants.checkPermissions -> {
-                activity?.let { act ->
+                context?.let { ctx ->
                     val argument = call.argument(Constants.recordClassListArgKey) as List<String>?
                     argument?.let { arg ->
-                        when (val hcStatus = HCManager.getOrCreate(activity = act)) {
+                        when (val hcStatus = HCManager.getOrCreate(ctx = ctx)) {
                             Constants.hCClientStatus.OK -> HCManager.checkPermissions(
                                 recordsClasses = arg,
                                 response = { records ->
@@ -64,10 +65,10 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
                 }
             }
             Constants.requestPermissions -> {
-                activity?.let { act ->
+                context?.let { ctx ->
                     val argument = call.argument(Constants.recordClassListArgKey) as List<String>?
                     argument?.let { arg ->
-                        when (val hcStatus = HCManager.getOrCreate(activity = act)) {
+                        when (val hcStatus = HCManager.getOrCreate(ctx = ctx)) {
                             Constants.hCClientStatus.OK -> HCManager.requestPermissions(
                                 recordsClasses = arg,
                                 response = { records ->
@@ -89,12 +90,12 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
                 }
             }
             Constants.readData -> {
-                activity?.let { act ->
+                context?.let { ctx ->
                     val recordClassArgKey = call.argument(Constants.recordClassArgKey) as String?
                     val startTime = call.argument(Constants.startTime) as Long?
                     val endTime = call.argument(Constants.endTime) as Long?
                     if (recordClassArgKey is String && startTime is Long && endTime is Long) {
-                        when (val hcStatus = HCManager.getOrCreate(activity = act)) {
+                        when (val hcStatus = HCManager.getOrCreate(ctx = ctx)) {
                             Constants.hCClientStatus.OK -> HCManager.readData(recordClass = recordClassArgKey,
                                 startTime = startTime,
                                 endTime = endTime,
@@ -125,8 +126,8 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
                 }
             }
             Constants.isProviderAvailable -> {
-                activity?.let { act ->
-                    when (val hcStatus = HCManager.getOrCreate(activity = act)) {
+                context?.let { ctx ->
+                    when (val hcStatus = HCManager.getOrCreate(ctx = ctx)) {
                         Constants.hCClientStatus.OK -> result.success(hcStatus.name)
                         else -> resolveHCClientStatusNotOK(result, hcStatus)
                     }
@@ -135,8 +136,8 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
                 }
             }
             Constants.writeData -> {
-                activity?.let { act ->
-                    when (val hcStatus = HCManager.getOrCreate(activity = act)) {
+                context?.let { ctx ->
+                    when (val hcStatus = HCManager.getOrCreate(ctx = ctx)) {
                         Constants.hCClientStatus.OK -> HCManager.writeData(
                         )
                         else -> resolveHCClientStatusNotOK(result, hcStatus)
@@ -155,10 +156,12 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             flutterPluginBinding.binaryMessenger, Constants.methodChannelToAndroid
         )
         channel!!.setMethodCallHandler(this)
+        context = flutterPluginBinding.applicationContext
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         channel?.setMethodCallHandler(null)
+        context = null
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
