@@ -26,7 +26,7 @@ class MockHealthConnectPlatform
   }
 
   @override
-  Future<List<HCPermission>> checkPermissions(List<HCPermission> permissions) {
+  Future<List<HCPermission>> checkPermissions() {
     // TODO: implement checkPermissions
     throw UnimplementedError();
   }

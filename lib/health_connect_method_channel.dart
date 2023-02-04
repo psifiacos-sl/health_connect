@@ -32,12 +32,12 @@ class MethodChannelHealthConnect extends HealthConnectPlatform {
   }
 
   @override
-  Future<List<HCPermission>> checkPermissions(
-      List<HCPermission> permissions) async {
-    final result = await methodChannel.invokeMethod(
-        Constants.checkPermissions, {
-      Constants.recordClassListArgKey: permissions.map((e) => e.name).toList()
-    }).onError((error, stackTrace) {
+  Future<List<HCPermission>> checkPermissions() async {
+    final result = await methodChannel
+        .invokeMethod(
+      Constants.checkPermissions,
+    )
+        .onError((error, stackTrace) {
       throw Exception(error);
     });
     List<HCPermission> grantedList = [];
@@ -101,7 +101,7 @@ class MethodChannelHealthConnect extends HealthConnectPlatform {
     final String? result = await methodChannel
         .invokeMethod<String>(Constants.isProviderAvailable)
         .onError((error, stackTrace) {
-          throw Exception(error);
+      throw Exception(error);
     });
     return HealthConnectStatus.values.firstWhere((element) =>
         element.name == (result?.toString() ?? HealthConnectStatus.UnKnown));
