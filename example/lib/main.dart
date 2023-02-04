@@ -98,10 +98,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void checkPermissions() async {
-    final list = HCPermission.values
-        .where((element) => element.name.startsWith("READ"))
-        .toList();
-    final permissions = await _healthConnectPlugin.checkPermissions(list);
+    final permissions = await _healthConnectPlugin.checkPermissions();
     print(permissions.toString());
   }
 
