@@ -20,13 +20,13 @@ class MockHealthConnectPlatform
   }
 
   @override
-  Future<List<RecordClass>> requestPermissions(List<RecordClass> permissions) {
+  Future<List<HCPermission>> requestPermissions(List<HCPermission> permissions) {
     // TODO: implement requestPermissions
     throw UnimplementedError();
   }
 
   @override
-  Future<List<RecordClass>> checkPermissions(List<RecordClass> permissions) {
+  Future<List<HCPermission>> checkPermissions(List<HCPermission> permissions) {
     // TODO: implement checkPermissions
     throw UnimplementedError();
   }

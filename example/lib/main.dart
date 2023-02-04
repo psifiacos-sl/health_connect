@@ -98,16 +98,16 @@ class _MyAppState extends State<MyApp> {
   }
 
   void checkPermissions() async {
-    final list = RecordClass.values
-        .where((element) => element.name.endsWith("Read"))
+    final list = HCPermission.values
+        .where((element) => element.name.startsWith("READ"))
         .toList();
     final permissions = await _healthConnectPlugin.checkPermissions(list);
     print(permissions.toString());
   }
 
   void requestPermissions() async {
-    final list = RecordClass.values
-        .where((element) => element.name.endsWith("Read"))
+    final list = HCPermission.values
+        .where((element) => element.name.startsWith("READ"))
         .toList();
     final permissions = await _healthConnectPlugin.requestPermissions(list);
     if (permissions.isEmpty) {}

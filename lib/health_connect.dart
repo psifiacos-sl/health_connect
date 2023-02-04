@@ -21,15 +21,15 @@ class HealthConnect {
     return result;
   }
 
-  Future<List<RecordClass>> requestPermissions(
-      List<RecordClass> permissions) async {
+  Future<List<HCPermission>> requestPermissions(
+      List<HCPermission> permissions) async {
     final list =
         await HealthConnectPlatform.instance.requestPermissions(permissions);
     return list;
   }
 
-  Future<List<RecordClass>> checkPermissions(
-      List<RecordClass> permissions) async {
+  Future<List<HCPermission>> checkPermissions(
+      List<HCPermission> permissions) async {
     final list =
         await HealthConnectPlatform.instance.checkPermissions(permissions);
     return list;

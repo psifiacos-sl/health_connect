@@ -19,7 +19,7 @@ import io.flutter.plugin.common.MethodChannel.Result
 
 
 /** HealthConnectPlugin */
-class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware{
+class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     /// The MethodChannel that will the communication between Flutter and native Android
     ///
     /// This local reference serves to register the plugin with the Flutter Engine and unregister it
@@ -41,24 +41,18 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware{
             }
             Constants.checkPermissions -> {
                 context?.let { ctx ->
-                    val argument = call.argument(Constants.recordClassListArgKey) as List<String>?
-                    argument?.let { arg ->
-                        when (val hcStatus = HCManager.getOrCreate(ctx = ctx)) {
-                            Constants.hCClientStatus.OK -> HCManager.checkPermissions(
-                                recordsClasses = arg,
-                                response = { records ->
-                                    val resultList: MutableList<String> = mutableListOf()
-                                    records.forEach {
-                                        resultList.add(it.name)
-                                    }
-                                    val hCResultJson = gson.toJson(resultList)
-                                    result.success(hCResultJson)
-                                },
-                            )
-                            else -> resolveHCClientStatusNotOK(result, hcStatus)
-                        }
-                    } ?: run {
-                        result.error(Constants.missingArgument, "No Argument", -1)
+                    when (val hcStatus = HCManager.getOrCreate(ctx = ctx)) {
+                        Constants.hCClientStatus.OK -> HCManager.checkPermissions(
+                            response = { records ->
+                                val resultList: MutableList<String> = mutableListOf()
+                                records.forEach {
+                                    resultList.add(it.name)
+                                }
+                                val hCResultJson = gson.toJson(resultList)
+                                result.success(hCResultJson)
+                            },
+                        )
+                        else -> resolveHCClientStatusNotOK(result, hcStatus)
                     }
                 } ?: run {
                     result.error(Constants.missingActivity, "No Activity", -1)
@@ -70,7 +64,7 @@ class HealthConnectPlugin : FlutterPlugin, MethodCallHandler, ActivityAware{
                     argument?.let { arg ->
                         when (val hcStatus = HCManager.getOrCreate(ctx = ctx)) {
                             Constants.hCClientStatus.OK -> HCManager.requestPermissions(
-                                recordsClasses = arg,
+                                hcPermissions = arg,
                                 response = { records ->
                                     val resultList: MutableList<String> = mutableListOf()
                                     records.forEach {

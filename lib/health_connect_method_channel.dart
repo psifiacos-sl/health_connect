@@ -32,17 +32,17 @@ class MethodChannelHealthConnect extends HealthConnectPlatform {
   }
 
   @override
-  Future<List<RecordClass>> checkPermissions(
-      List<RecordClass> permissions) async {
+  Future<List<HCPermission>> checkPermissions(
+      List<HCPermission> permissions) async {
     final result = await methodChannel.invokeMethod(
         Constants.checkPermissions, {
       Constants.recordClassListArgKey: permissions.map((e) => e.name).toList()
     }).onError((error, stackTrace) {
       throw Exception(error);
     });
-    List<RecordClass> grantedList = [];
+    List<HCPermission> grantedList = [];
     final decodeResult = jsonDecode(result) as Iterable;
-    final recordsMap = RecordClass.values.asNameMap();
+    final recordsMap = HCPermission.values.asNameMap();
     for (var element in decodeResult) {
       final rc = recordsMap[element];
       if (rc != null) {
@@ -53,17 +53,17 @@ class MethodChannelHealthConnect extends HealthConnectPlatform {
   }
 
   @override
-  Future<List<RecordClass>> requestPermissions(
-      List<RecordClass> permissions) async {
+  Future<List<HCPermission>> requestPermissions(
+      List<HCPermission> permissions) async {
     final result = await methodChannel.invokeMethod(
         Constants.requestPermissions, {
       Constants.recordClassListArgKey: permissions.map((e) => e.name).toList()
     }).onError((error, stackTrace) {
       throw Exception(error);
     });
-    List<RecordClass> grantedList = [];
+    List<HCPermission> grantedList = [];
     final decodeResult = jsonDecode(result) as Iterable;
-    final recordsMap = RecordClass.values.asNameMap();
+    final recordsMap = HCPermission.values.asNameMap();
     for (var element in decodeResult) {
       final rc = recordsMap[element];
       if (rc != null) {

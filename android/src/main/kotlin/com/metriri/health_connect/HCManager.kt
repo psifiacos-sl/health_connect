@@ -46,25 +46,24 @@ object HCManager {
     }
 
     fun requestPermissions(
-        recordsClasses: List<String>,
-        response: (records: Set<Constants.RecordClass>) -> Unit,
+        hcPermissions: List<String>,
+        response: (records: Set<Constants.HCPermission>) -> Unit,
     ) {
-        val permissions = Utils.fromRecordClassesToPermissions(recordsClasses)
+        val permissions = Utils.fromHCPermissionsToPermissions(hcPermissions)
         hCCycleObserver?.launchRequestPermissions(permissions) {
-            val resultRecordClasses = Utils.fromPermissionsToRecordClasses(it)
-            response(resultRecordClasses)
+            val grantedHCPermissions = Utils.fromPermissionsToHCPermissions(it)
+            response(grantedHCPermissions)
         }
     }
 
     fun checkPermissions(
-        recordsClasses: List<String>,
-        response: (records: Set<Constants.RecordClass>) -> Unit,
+        response: (records: Set<Constants.HCPermission>) -> Unit,
     ) {
         scope.launch {
             val granted =
                 hCClient?.permissionController?.getGrantedPermissions() ?: setOf()
-            val resultRecordClasses = Utils.fromPermissionsToRecordClasses(granted)
-            response(resultRecordClasses)
+            val hcPermissions = Utils.fromPermissionsToHCPermissions(granted)
+            response(hcPermissions)
         }
     }
 
@@ -74,7 +73,7 @@ object HCManager {
         endTime: Long,
         response: (readRecordsResponse: ReadRecordsResponse<out Record>?) -> Unit,
     ) {
-        checkPermissions(listOf(recordClass)) { record ->
+        checkPermissions { record ->
             scope.launch {
                 val kClass = Constants.RecordClass.valueOf(recordClass).kC
                 val result = hCClient?.readRecords(

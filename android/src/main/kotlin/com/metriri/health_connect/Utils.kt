@@ -7,26 +7,21 @@ import com.metriri.health_connect.models.base.RecordData
 class Utils {
     companion object {
 
-        fun fromPermissionsToRecordClasses(permissions: Set<String>): Set<Constants.RecordClass> {
-            val recordClasses: MutableSet<Constants.RecordClass> = mutableSetOf()
+        fun fromPermissionsToHCPermissions(permissions: Set<String>): Set<Constants.HCPermission> {
+            val hcPermissions: MutableSet<Constants.HCPermission> = mutableSetOf()
             permissions.forEach {
-                Constants.RecordClass.values()
-                    .first { r -> Constants.permissionPrefix + r.permission == it }.let { rc ->
-                        recordClasses.add(rc)
+                Constants.HCPermission.values()
+                    .first { r -> Constants.permissionPrefix + r == it }.let { rc ->
+                        hcPermissions.add(rc)
                     }
             }
-            return recordClasses
+            return hcPermissions
         }
 
-        fun fromRecordClassesToPermissions(recordsClasses: List<String>): Set<String> {
+        fun fromHCPermissionsToPermissions(hcPermissions: List<String>): Set<String> {
             val permissions: MutableSet<String> = mutableSetOf()
-            recordsClasses.forEach { str ->
-                Constants.RecordClass.valueOf(str).kC.also { kClass ->
-                    when (str.endsWith(Constants.readSuffix)) {
-                        true -> permissions.add(HealthPermission.getReadPermission(kClass))
-                        else -> permissions.add(HealthPermission.getWritePermission(kClass))
-                    }
-                }
+            hcPermissions.forEach { permission ->
+                permissions.add(Constants.permissionPrefix + permission)
             }
             return permissions
         }
