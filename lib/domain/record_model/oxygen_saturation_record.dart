@@ -5,9 +5,11 @@ import 'package:health_connect/domain/units/percentage_unit.dart';
 class OxygenSaturationRecord extends InstantaneousRecord {
   final PercentageUnit percentage;
 
-  OxygenSaturationRecord({required this.percentage, required super.metadata,
-    super.time,
-    super.zoneOffset});
+  OxygenSaturationRecord(
+      {required this.percentage,
+      required super.metadata,
+      required super.time,
+      super.zoneOffset});
 
   factory OxygenSaturationRecord.fromJson(Map<String, dynamic> json) {
     final parent = InstantaneousRecord.fromJson(json);

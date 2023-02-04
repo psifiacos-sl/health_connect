@@ -5,10 +5,13 @@ import 'package:health_connect/domain/units/volume_unit.dart';
 class HydrationRecord extends IntervalRecord {
   final VolumeUnit volume;
 
-  HydrationRecord({required this.volume, required super.metadata, super.startTime,
-    super.endTime,
-    super.startZoneOffset,
-    super.endZoneOffset});
+  HydrationRecord(
+      {required this.volume,
+      required super.metadata,
+      required super.startTime,
+      required super.endTime,
+      super.startZoneOffset,
+      super.endZoneOffset});
 
   factory HydrationRecord.fromJson(Map<String, dynamic> json) {
     final parent = IntervalRecord.fromJson(json);

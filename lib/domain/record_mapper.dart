@@ -10,6 +10,7 @@ import 'package:health_connect/domain/record_model/blood_glucose_record.dart';
 import 'package:health_connect/domain/record_model/blood_pressure_record.dart';
 import 'package:health_connect/domain/record_model/body_fat_record.dart';
 import 'package:health_connect/domain/record_model/body_temperature_record.dart';
+import 'package:health_connect/domain/record_model/body_water_mass_record.dart';
 import 'package:health_connect/domain/record_model/bone_mass_record.dart';
 import 'package:health_connect/domain/record_model/cervical_mucus_record.dart';
 import 'package:health_connect/domain/record_model/cycling_pedaling_cadence_record.dart';
@@ -18,11 +19,15 @@ import 'package:health_connect/domain/record_model/elevation_gained_record.dart'
 import 'package:health_connect/domain/record_model/exercise_session_record.dart';
 import 'package:health_connect/domain/record_model/floors_climbed_record.dart';
 import 'package:health_connect/domain/record_model/heart_rate_record.dart';
+import 'package:health_connect/domain/record_model/heart_rate_variability_rmssd_record.dart';
 import 'package:health_connect/domain/record_model/height_record.dart';
 import 'package:health_connect/domain/record_model/hydration_record.dart';
 import 'package:health_connect/domain/record_model/lean_body_mass_record.dart';
 import 'package:health_connect/domain/record_model/menstruation_flow_record.dart';
+import 'package:health_connect/domain/record_model/menstruation_period_record.dart';
+import 'package:health_connect/domain/record_model/ovulation_test_record.dart';
 import 'package:health_connect/domain/record_model/oxygen_saturation_record.dart';
+import 'package:health_connect/domain/record_model/power_record.dart';
 import 'package:health_connect/domain/record_model/respiratory_rate_record.dart';
 import 'package:health_connect/domain/record_model/resting_heart_rate_record.dart';
 import 'package:health_connect/domain/record_model/sleep_session_record.dart';
@@ -36,6 +41,8 @@ import 'package:health_connect/domain/record_model/vo2_max_record.dart';
 import 'package:health_connect/domain/record_model/weight_record.dart';
 import 'package:health_connect/domain/record_model/wheelchair_pushes_record.dart';
 import 'package:health_connect/enums.dart';
+
+import 'record_model/sexual_activity_record.dart';
 
 class RecordMapper {
   static Record getRecordMapper(
@@ -55,6 +62,8 @@ class RecordMapper {
         return BodyFatRecord.fromJson(json);
       case RecordClass.BodyTemperatureRead:
         return BodyTemperatureRecord.fromJson(json);
+      case RecordClass.BodyWaterMassRead:
+        return BodyWaterMassRecord.fromJson(json);
       case RecordClass.BoneMassRead:
         return BoneMassRecord.fromJson(json);
       case RecordClass.CervicalMucusRead:
@@ -71,6 +80,8 @@ class RecordMapper {
         return FloorsClimbedRecord.fromJson(json);
       case RecordClass.HeartRateSeriesRead:
         return HeartRateRecord.fromJson(json);
+      case RecordClass.HeartRateVariabilityRmssdRead:
+        return HeartRateVariabilityRmssdRecord.fromJson(json);
       case RecordClass.HeightRead:
         return HeightRecord.fromJson(json);
       case RecordClass.HydrationRead:
@@ -80,21 +91,21 @@ class RecordMapper {
       case RecordClass.MenstruationFlowRead:
         return MenstruationFlowRecord.fromJson(json);
       case RecordClass.MenstruationPeriodRead:
-        throw notImplementedYetException();
+        return MenstruationPeriodRecord.fromJson(json);
       case RecordClass.NutritionRead:
         throw notImplementedYetException();
       case RecordClass.OvulationTestRead:
-        throw notImplementedYetException();
+        return OvulationTestRecord.fromJson(json);
       case RecordClass.OxygenSaturationRead:
         return OxygenSaturationRecord.fromJson(json);
       case RecordClass.PowerSeriesRead:
-        throw notImplementedYetException();
+        return PowerRecord.fromJson(json);
       case RecordClass.RespiratoryRateRead:
         return RespiratoryRateRecord.fromJson(json);
       case RecordClass.RestingHeartRateRead:
         return RestingHeartRateRecord.fromJson(json);
       case RecordClass.SexualActivityRead:
-        throw notImplementedYetException();
+        return SexualActivityRecord.fromJson(json);
       case RecordClass.SleepSessionRead:
         return SleepSessionRecord.fromJson(json);
       case RecordClass.SleepStageRead:

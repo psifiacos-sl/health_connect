@@ -15,6 +15,7 @@ class Constants {
   static const packageName = "packageName";
   static const type = "type";
   static const eventType = "eventType";
+  static const result = "result";
   static const exerciseType = "exerciseType";
   static const manufacturer = "manufacturer";
   static const model = "model";
@@ -40,6 +41,7 @@ class Constants {
   static const level = "level";
   static const systolic = "systolic";
   static const diastolic = "diastolic";
+  static const bodyPosition = "bodyPosition";
   static const percentage = "percentage";
   static const mass = "mass";
   static const samples = "samples";
@@ -63,9 +65,20 @@ class Constants {
   static const volume = "volume";
   static const flow = "flow";
   static const rate = "rate";
+  static const measurementLocation = "measurementLocation";
   static const stage = "stage";
   static const velocity = "velocity";
   static const vo2MillilitersPerMinuteKilogram = "vo2MillilitersPerMinuteKilogram";
+  static const specimenSource = "specimenSource";
+  static const mealType = "mealType";
+  static const relationToMeal = "relationToMeal";
+  static const appearance = "appearance";
+  static const sensation = "sensation";
+  static const power = "power";
+  static const protectionUsed = "protectionUsed";
+  static const maximalAerobicCapacityInMilliliters = "maximalAerobicCapacityInMilliliters";
+  static const weight = "weight";
+  static const measurementMethod = "measurementMethod";
 
 
   static const notImplementedYet = "notImplementedYet";

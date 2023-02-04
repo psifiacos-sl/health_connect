@@ -5,9 +5,11 @@ import 'package:health_connect/domain/units/mass_unit.dart';
 class BoneMassRecord extends InstantaneousRecord {
   final MassUnit mass;
 
-  BoneMassRecord({required this.mass, required super.metadata,
-    super.time,
-    super.zoneOffset});
+  BoneMassRecord(
+      {required this.mass,
+      required super.metadata,
+      required super.time,
+      super.zoneOffset});
 
   factory BoneMassRecord.fromJson(Map<String, dynamic> json) {
     final parent = InstantaneousRecord.fromJson(json);

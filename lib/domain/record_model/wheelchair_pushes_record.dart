@@ -3,12 +3,15 @@ import 'package:health_connect/domain/record_model/_base/interval_record.dart';
 import 'package:health_connect/domain/units/data_no_unit.dart';
 
 class WheelchairPushesRecord extends IntervalRecord {
-  final DataNoUnit dataNoUnit;
+  final DataNoUnit count;
 
-  WheelchairPushesRecord({required this.dataNoUnit, required super.metadata, super.startTime,
-    super.endTime,
-    super.startZoneOffset,
-    super.endZoneOffset});
+  WheelchairPushesRecord(
+      {required this.count,
+      required super.metadata,
+      required super.startTime,
+      required super.endTime,
+      super.startZoneOffset,
+      super.endZoneOffset});
 
   factory WheelchairPushesRecord.fromJson(Map<String, dynamic> json) {
     final parent = IntervalRecord.fromJson(json);
@@ -18,6 +21,6 @@ class WheelchairPushesRecord extends IntervalRecord {
         endTime: parent.endTime,
         endZoneOffset: parent.endZoneOffset,
         startZoneOffset: parent.startZoneOffset,
-        dataNoUnit: DataNoUnit(json[Constants.count]));
+        count: DataNoUnit(json[Constants.count]));
   }
 }

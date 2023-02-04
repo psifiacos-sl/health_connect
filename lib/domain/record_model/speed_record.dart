@@ -8,8 +8,8 @@ class SpeedRecord extends IntervalRecord {
   SpeedRecord(
       {required this.samples,
       required super.metadata,
-      super.startTime,
-      super.endTime,
+      required super.startTime,
+      required super.endTime,
       super.startZoneOffset,
       super.endZoneOffset});
 

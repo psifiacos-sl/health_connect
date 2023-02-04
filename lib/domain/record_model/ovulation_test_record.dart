@@ -3,24 +3,24 @@ import 'package:health_connect/domain/record_model/_base/instantaneous_record.da
 import 'package:health_connect/domain/units/data_no_unit.dart';
 import 'package:health_connect/enums.dart';
 
-class MenstruationFlowRecord extends InstantaneousRecord {
-  final DataNoUnit flow;
+class OvulationTestRecord extends InstantaneousRecord {
+  final DataNoUnit result;
 
-  MenstruationFlowRecord(
-      {required this.flow,
+  OvulationTestRecord(
+      {required this.result,
       required super.metadata,
       required super.time,
       super.zoneOffset});
 
-  factory MenstruationFlowRecord.fromJson(Map<String, dynamic> json) {
+  factory OvulationTestRecord.fromJson(Map<String, dynamic> json) {
     final parent = InstantaneousRecord.fromJson(json);
-    return MenstruationFlowRecord(
+    return OvulationTestRecord(
         metadata: parent.metadata,
         time: parent.time,
         zoneOffset: parent.zoneOffset,
-        flow: DataNoUnit(MenstruationFlowTypes.values
-            .firstWhere((element) => element.name == json[Constants.flow],
-                orElse: () => MenstruationFlowTypes.FLOW_UNKNOWN)
+        result: DataNoUnit(OvulationTest.values
+            .firstWhere((element) => element.name == json[Constants.result],
+                orElse: () => OvulationTest.RESULT_INCONCLUSIVE)
             .index));
   }
 }

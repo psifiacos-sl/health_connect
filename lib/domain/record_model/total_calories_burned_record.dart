@@ -5,10 +5,13 @@ import 'package:health_connect/domain/units/energy_unit.dart';
 class TotalCaloriesBurnedRecord extends IntervalRecord {
   final EnergyUnit energy;
 
-  TotalCaloriesBurnedRecord({required this.energy, required super.metadata, super.startTime,
-    super.endTime,
-    super.startZoneOffset,
-    super.endZoneOffset});
+  TotalCaloriesBurnedRecord(
+      {required this.energy,
+      required super.metadata,
+      required super.startTime,
+      required super.endTime,
+      super.startZoneOffset,
+      super.endZoneOffset});
 
   factory TotalCaloriesBurnedRecord.fromJson(Map<String, dynamic> json) {
     final parent = IntervalRecord.fromJson(json);

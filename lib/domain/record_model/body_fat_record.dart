@@ -5,8 +5,11 @@ import 'package:health_connect/domain/units/percentage_unit.dart';
 class BodyFatRecord extends InstantaneousRecord {
   final PercentageUnit percentage;
 
-  BodyFatRecord({required this.percentage, required super.metadata, super.time,
-    super.zoneOffset});
+  BodyFatRecord(
+      {required this.percentage,
+      required super.metadata,
+      required super.time,
+      super.zoneOffset});
 
   factory BodyFatRecord.fromJson(Map<String, dynamic> json) {
     final parent = InstantaneousRecord.fromJson(json);

@@ -5,10 +5,13 @@ import 'package:health_connect/domain/units/data_no_unit.dart';
 class StepsCadenceRecord extends IntervalRecord {
   final List<StepsCadenceRecordSample> samples;
 
-  StepsCadenceRecord({required this.samples, required super.metadata, super.startTime,
-    super.endTime,
-    super.startZoneOffset,
-    super.endZoneOffset});
+  StepsCadenceRecord(
+      {required this.samples,
+      required super.metadata,
+      required super.startTime,
+      required super.endTime,
+      super.startZoneOffset,
+      super.endZoneOffset});
 
   factory StepsCadenceRecord.fromJson(Map<String, dynamic> json) {
     final parent = IntervalRecord.fromJson(json);

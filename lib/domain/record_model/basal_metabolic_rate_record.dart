@@ -6,9 +6,10 @@ class BasalMetabolicRateRecord extends InstantaneousRecord {
   final PowerUnit basalMetabolicRate;
 
   BasalMetabolicRateRecord(
-      {required this.basalMetabolicRate, required super.metadata,
-        super.time,
-        super.zoneOffset});
+      {required this.basalMetabolicRate,
+      required super.metadata,
+      required super.time,
+      super.zoneOffset});
 
   factory BasalMetabolicRateRecord.fromJson(Map<String, dynamic> json) {
     final parent = InstantaneousRecord.fromJson(json);

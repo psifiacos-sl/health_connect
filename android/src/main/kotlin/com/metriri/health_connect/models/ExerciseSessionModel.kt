@@ -12,4 +12,6 @@ class ExerciseSessionModel(record: ExerciseSessionRecord) : IntervalRecordData {
     override val endZoneOffset: Int = record.endZoneOffset?.totalSeconds ?: 0
     override val metadata: MetaDataModel = MetaDataModel.setDataFromRecord(record)
     val exerciseType: Int = record.exerciseType
+    val title: String? = null
+    val notes: String? = null
 }

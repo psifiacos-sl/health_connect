@@ -8,8 +8,8 @@ class ActiveCaloriesBurnedRecord extends IntervalRecord {
   ActiveCaloriesBurnedRecord(
       {required this.energy,
       required super.metadata,
-      super.startTime,
-      super.endTime,
+      required super.startTime,
+      required super.endTime,
       super.startZoneOffset,
       super.endZoneOffset});
 

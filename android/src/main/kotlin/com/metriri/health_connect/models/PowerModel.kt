@@ -21,5 +21,5 @@ class PowerModel(record: PowerRecord) : SeriesRecordData<PowerModel.Sample> {
     override val endZoneOffset: Int = record.endZoneOffset?.totalSeconds ?: 0
     override val metadata: MetaDataModel = MetaDataModel.setDataFromRecord(record)
 
-    data class Sample(val time: Long, val pwer: Power)
+    data class Sample(val time: Long, val power: Power)
 }

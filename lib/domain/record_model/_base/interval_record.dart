@@ -2,15 +2,15 @@ import 'package:health_connect/constants.dart';
 import 'package:health_connect/domain/record_model/_base/record.dart';
 
 class IntervalRecord extends Record {
-  final int? startTime;
-  final int? endTime;
+  final int startTime;
+  final int endTime;
   final int? startZoneOffset;
   final int? endZoneOffset;
 
   IntervalRecord(
       {required super.metadata,
-      this.startTime,
-      this.endTime,
+      required this.startTime,
+      required this.endTime,
       this.endZoneOffset,
       this.startZoneOffset});
 

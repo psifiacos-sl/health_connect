@@ -130,7 +130,7 @@ enum MeasurementLocations {
   MEASUREMENT_LOCATION_RIGHT_UPPER_ARM
 }
 
-enum Appearances {
+enum Appearance {
   APPEARANCE_UNKNOWN,
   APPEARANCE_DRY,
   APPEARANCE_STICKY,
@@ -140,7 +140,7 @@ enum Appearances {
   APPEARANCE_UNUSUAL
 }
 
-enum Sensations {
+enum Sensation {
   SENSATION_UNKNOWN,
   SENSATION_LIGHT,
   SENSATION_MEDIUM,
@@ -157,15 +157,6 @@ enum SleepStageTypes {
   STAGE_TYPE_REM,
 }
 
-enum SwimmingTypes{
-  SWIMMING_TYPE_OTHER,
-  SWIMMING_TYPE_FREESTYLE,
-  SWIMMING_TYPE_BACKSTROKE,
-  SWIMMING_TYPE_BREASTSTROKE,
-  SWIMMING_TYPE_BUTTERFLY,
-  SWIMMING_TYPE_MIXED
-}
-
 enum MeasurementMethods{
   MEASUREMENT_METHOD_OTHER,
   MEASUREMENT_METHOD_METABOLIC_CART,
@@ -173,46 +164,6 @@ enum MeasurementMethods{
   MEASUREMENT_METHOD_COOPER_TEST,
   MEASUREMENT_METHOD_MULTISTAGE_FITNESS_TEST,
   MEASUREMENT_METHOD_ROCKPORT_FITNESS_TEST
-}
-
-enum ExerciseEventType {
-  EVENT_TYPE_UNKNOWN,
-  EVENT_TYPE_PAUSE,
-  EVENT_TYPE_REST,
-}
-
-enum RepetitionTypes {
-  REPETITION_TYPE_UNKNOWN,
-  REPETITION_TYPE_ARM_CURL,
-  REPETITION_TYPE_BACK_EXTENSION,
-  REPETITION_TYPE_BALL_SLAM,
-  REPETITION_TYPE_BENCH_PRESS,
-  REPETITION_TYPE_BURPEE,
-  REPETITION_TYPE_CRUNCH,
-  REPETITION_TYPE_DEADLIFT,
-  REPETITION_TYPE_DOUBLE_ARM_TRICEPS_EXTENSION,
-  REPETITION_TYPE_DUMBBELL_ROW,
-  REPETITION_TYPE_FRONT_RAISE,
-  REPETITION_TYPE_HIP_THRUST,
-  REPETITION_TYPE_HULA_HOOP,
-  REPETITION_TYPE_JUMPING_JACK,
-  REPETITION_TYPE_JUMP_ROPE,
-  REPETITION_TYPE_KETTLEBELL_SWING,
-  REPETITION_TYPE_LATERAL_RAISE,
-  REPETITION_TYPE_LAT_PULL_DOWN,
-  REPETITION_TYPE_LEG_CURL,
-  REPETITION_TYPE_LEG_EXTENSION,
-  REPETITION_TYPE_LEG_PRESS,
-  REPETITION_TYPE_LEG_RAISE,
-  REPETITION_TYPE_LUNGE,
-  REPETITION_TYPE_MOUNTAIN_CLIMBER,
-  REPETITION_TYPE_PLANK,
-  REPETITION_TYPE_PULL_UP,
-  REPETITION_TYPE_PUNCH,
-  REPETITION_TYPE_SHOULDER_PRESS,
-  REPETITION_TYPE_SINGLE_ARM_TRICEPS_EXTENSION,
-  REPETITION_TYPE_SIT_UP,
-  REPETITION_TYPE_SQUAT
 }
 
 enum ExerciseType {
@@ -309,6 +260,7 @@ enum RecordClass {
   BloodPressureRead,
   BodyFatRead,
   BodyTemperatureRead,
+  BodyWaterMassRead,
   BoneMassRead,
   CervicalMucusRead,
   CyclingPedalingCadenceSeriesRead,
@@ -317,6 +269,7 @@ enum RecordClass {
   ExerciseSessionRead,
   FloorsClimbedRead,
   HeartRateSeriesRead,
+  HeartRateVariabilityRmssdRead,
   HeightRead,
   HydrationRead,
   LeanBodyMassRead,
@@ -346,6 +299,7 @@ enum RecordClass {
   BloodPressureWrite,
   BodyFatWrite,
   BodyTemperatureWrite,
+  BodyWaterMassWrite,
   BoneMassWrite,
   CervicalMucusWrite,
   CyclingPedalingCadenceSeriesWrite,
@@ -354,6 +308,7 @@ enum RecordClass {
   ExerciseSessionWrite,
   FloorsClimbedWrite,
   HeartRateSeriesWrite,
+  HeartRateVariabilityRmssdWrite,
   HeightWrite,
   HydrationWrite,
   LeanBodyMassWrite,

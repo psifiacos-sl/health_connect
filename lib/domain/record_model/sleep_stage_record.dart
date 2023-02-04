@@ -4,13 +4,13 @@ import 'package:health_connect/domain/units/data_no_unit.dart';
 import 'package:health_connect/enums.dart';
 
 class SleepStageRecord extends IntervalRecord {
-  final DataNoUnit dataNoUnit;
+  final DataNoUnit stage;
 
   SleepStageRecord(
-      {required this.dataNoUnit,
+      {required this.stage,
       required super.metadata,
-      super.startTime,
-      super.endTime,
+      required super.startTime,
+      required super.endTime,
       super.startZoneOffset,
       super.endZoneOffset});
 
@@ -22,7 +22,7 @@ class SleepStageRecord extends IntervalRecord {
         endTime: parent.endTime,
         endZoneOffset: parent.endZoneOffset,
         startZoneOffset: parent.startZoneOffset,
-        dataNoUnit: DataNoUnit(SleepStageTypes.values
+        stage: DataNoUnit(SleepStageTypes.values
             .firstWhere((element) => element.name == json[Constants.stage],
                 orElse: () => SleepStageTypes.STAGE_TYPE_UNKNOWN)
             .index));
